@@ -1,4 +1,4 @@
-# testvuejs
+# exovuejs
 
 ## Project setup
 ```

@@ -8,13 +8,39 @@
   
   #nav {
     padding: 30px;
+    border-bottom: 2px solid yellow;
+    background-color: cornflowerblue;
   }
   
   #nav a {
     font-weight: bold;
-    color: #2c3e50;
+    color: #ffc0cb;
   }
   
   #nav a.router-link-exact-active {
     color: #42b983;
+  }
+
+  
+  #navtop li a:hover {
+    /* color: rgb(25, 27, 25) !important; */
+    color: #91283b;
+    font-weight: 600;
+    background-color: #ffc0cb !important;
+  }
+  .nav-link {
+    padding: 15px;
+    border-bottom: 1px solid #ffc0cb;
+  }
+  .custom-toggler .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255, 192, 203, 0.8)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+  }
+  .custom-toggler.navbar-toggler {
+    border-color: blue;
+  }
+  
+  @media screen and (min-width: 992px) {
+    .nav-link {
+      border-bottom: none;
+    }
   }

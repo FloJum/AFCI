@@ -72,22 +72,4 @@ const products = [
     img: "/ProjetVueJS/img/mesh-genova.JPG",
   },
 ];
-let app = new Vue({
-  el: ".montrePage",
-  data: () => {
-    return {
-      products,
-      cleRecherche: "",
-    };
-  },
 
-  computed: {
-    filterList() {
-      return this.products.filter((product) => {
-        return product.description
-          .toLowerCase()
-          .includes(this.cleRecherche.toLowerCase());
-      });
-    },
-  },
-});

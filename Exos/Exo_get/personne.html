@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/custom.css" />
+
+    <title>Document</title>
+  </head>
+  <body>
+    <main class="container-fluid">
+      <div class="row">
+        <form action="personne1.php" method="get">
+          <div>
+            <label for="nominput">Nom :</label>
+            <input
+              type="text"
+              id="nominput"
+              name="user_name"
+              placeholder="Votre nom"
+            />
+          </div>
+
+          <div>
+            <label for="prenominput">Prénom :</label>
+            <input
+              type="text"
+              id="prenominput"
+              name="user_forename"
+              placeholder="Votre prénom"
+            />
+          </div>
+          <div>
+            <p>Votre genre :</p>
+            <label for="female">Femme</label>
+            <input type="radio" id="female" name="user_gender" value="Femme" />
+            <label for="male">Homme</label>
+            <input type="radio" id="male" name="user_gender" value="Homme" />
+            <label for="non-binary">Non-binaire</label>
+            <input
+              type="radio"
+              id="nonbinary"
+              name="user_gender"
+              value="Non-binaire"
+            />
+          </div>
+          <div>
+            <div>Votre situation familiale :
+            <label for="married">Marié(e)</label>
+            <input
+              type="checkbox"
+              id="married"
+              name="user_family_status"
+              value="marié"
+            />
+          </div>
+          </div>
+          <div>
+            <label for="password">Votre mot de passe :</label>
+            <input type="password" id="password" name="user_password" />
+          </div>
+          <div>
+            <label for="passion">Votre passion :</label>
+            <select id="passion" name="user_passion">
+              <option value="">Choisir une option :</option>
+              <option value="cinema">Cinéma</option>
+              <option value="jeu-vidéo">Jeu-vidéo</option>
+              <option value="lecture">Lecture</option>
+              <option value="musique">Musique</option>
+              <option value="sport">Sport</option>
+            </select>
+          </div>
+          <div>
+            <label for="hobbies">Vos passe-temps :</label>
+            <select id="hobbies" name="user_hobbies" multiple size="3">
+              <option value="">Choisir une option :</option>
+              <option value="chill">Chill</option>
+              <option value="cuisiner">Cuisine</option>
+              <option value="écrire">Ecrire</option>
+              <option value="jardiner">Jardinage</option>
+              <option value="lire">Lire</option>
+              <option value="musique">Musique</option>
+              <option value="netflix">Netflix</option>
+              <option value="promenade">Promenade</option>
+              <option value="sport">Sport</option>
+              <option value="voyager">Voyage</option>
+            </select>
+          </div>
+          <div>
+            <input type="submit" />
+          </div>
+        </form>
+      </div>
+    </main>
+  </body>
+  <style>
+    form {
+      width: 600px;
+      margin: auto;
+      padding: 50px;
+    }
+    div {
+      margin: 10px;
+    }
+    select{
+      margin: 0px;
+    }
+  </style>
+</html>

@@ -36,7 +36,7 @@ function display2()
         } else  if ($_POST["user_passion"] == "") {
             $erreur_passion = "Vous n'avez pas sélectionné de passion";
         } else  if ($_POST["user_hobbies"] == "") {
-            $erreur_hobbys = "Vous n'avez pas choisi de hooby";
+            $erreur_hobbys = "Vous n'avez pas choisi de hobby";
         } else {
             echo "<table><tr><td>'Nom'</td><td>'Prénom'</td><td>'Genre'</td><td>'Statut marital'</td><td>'Mot de passe'</td><td>'Passion'</td><td>'Hobbies'</td>";
             echo "<tr><td>$Name</td><td>$Forename</td><td>$Gender</td><td>$FamilyStatus</td><td>$Password</td><td>$Passion</td><td>";

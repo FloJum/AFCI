@@ -23,7 +23,8 @@
                 type="text"
                 id="nominput"
                 name="user_name"
-                placeholder="Votre nom"
+                value="Votre nom"
+                required
               />
             </div>
   
@@ -33,7 +34,8 @@
                 type="text"
                 id="prenominput"
                 name="user_forename"
-                placeholder="Votre prénom"
+                value="Votre prénom"
+                required
               />
             </div>
             <div>
@@ -63,7 +65,7 @@
             </div>
             <div>
               <label for="password">Votre mot de passe :</label>
-              <input type="password" id="password" name="user_password" />
+              <input type="password" id="password" name="user_password" required />
             </div>
             <div>
               <label for="passion">Votre passion :</label>
@@ -91,6 +93,25 @@
                 <option value="sport">Sport</option>
                 <option value="voyager">Voyage</option>
               </select>
+            </div>
+            <div>
+              <label for="pesudoinput">Pseudo :</label>
+              <input
+                type="text"
+                id="pseudoinput"
+                name="user_pseudo"
+                value="Votre pseudo"
+              />
+            </div>
+            <div>
+              <label for="emailinput">Adresse email:</label>
+              <input
+                type="mail"
+                id="emailinput"
+                name="user_email"
+                value="toto@exemple.com"
+                
+              />
             </div>
             <div>
               <button type="submit" name="btnsubmit" value="envoyer" >Envoyer</button>

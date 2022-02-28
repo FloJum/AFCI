@@ -16,13 +16,16 @@
     $Password = $_SESSION['user_password'];
     $Passion = $_SESSION['user_passion'];
     $Hobbys = $_SESSION['user_hobbys'];
+    $Pseudo = $_SESSION['user_pseudo'];
+    $Email = $_SESSION['user_email'];
+
 
     ?>
     <title>Document</title>
 </head>
 
 <body>
-    <main class="container-fluid">
+    <main class="container-fluid flex">
         <div class="row">
             <div class="affiche col-6 offset-3 border border-dark p-3">
                 <div class="row ">
@@ -31,14 +34,26 @@
                         <h5 class="text-decoration-underline">Nom et prénom :</h5>
                         <p>Ton nom est bien <strong><?php echo $Name ?> <?php echo $Forename ?></strong> n'est-ce pas ?</p>
                     </div>
-                    <div class="col-6 text-center ">
+                    <div class="col-6 text-center">
                         <h5 class="text-decoration-underline">Genre et Statut marital :</h5>
                         <p>Apparemment tu es <strong><?php echo $Gender ?></strong> et tu es <strong><?php echo $FamilyStatus ?></strong>.</p>
                     </div>
-                    <h5 class="col-3 bg-danger">Mot de passe :</h5>
-                    <div class="col-9 bg-primary">Ton mot de passe n'est pas secret car il s'affiche en clair ici : <?php echo $Password ?> </div>
-                    <p>Je vois que tu es passioné par <?php echo $Passion ?>.</p>
-                    <p>Tes hobbys sont : <?php echo $Hobbys ?>.</p>
+                    <div class="col-12  text-center">
+                        <h5 class="col-12 text-decoration-underline">Mot de passe :</h5>
+                        <div class="col-12">Ton mot de passe n'est pas secret car il s'affiche en clair ici : <strong><?php echo $Password ?></strong> </div>
+                    </div>
+                    <div class="col-6 text-center">
+                        <h5 class="col-12 text-decoration-underline">Passion :</h5>
+                        <p class="col-12">Je vois que tu es passionné par <strong><?php echo $Passion ?></strong>.</p>
+                    </div>
+                    <div class="col-6 text-center">
+                        <h5 class="col-12 text-decoration-underline">Hobbys :</h5>
+                        <p class="col-12">Tes hobbys sont : <strong><?php echo $Hobbys ?></strong>.</p>
+                    </div>
+                    <div class="text-center">
+                        <h5 class="text-decoration-underline">Pseudo et adresse mail :</h5>
+                        <p>Tu as choisi le pseudo <strong><?php echo $Pseudo ?></strong> et ton adresse mail est <strong><?php echo $Email ?></strong></p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -51,12 +66,18 @@
 </html>
 
 <style>
+    body {
+      background-color: #112f41;
+    }
     .affiche {
         margin-top: 40px;
-        background-color: lightskyblue;
+        background-color: mistyrose;
     }
 
     h5 {
         margin-top: 20px;
+        border: 1px  solid black;
+        background-color: white;
+        padding: 10px 0px;
     }
 </style>

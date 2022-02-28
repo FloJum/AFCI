@@ -11,6 +11,8 @@ foreach ($_POST["user_hobbys"] as $val) {
     $Hobbys .= $val . ", ";
 }
 $Hobbys = rtrim($Hobbys, ", ");
+$Pseudo = $_POST['user_pseudo'];
+$Email = $_POST['user_email'];
 
 
 require_once "../fonctions_utiles.php";
@@ -23,6 +25,8 @@ $err_familyStatus = "";
 $err_password = "";
 $err_passion = "";
 $err_hobbys = "";
+$err_pseudo = "";
+$err_email ="";
 
 if (isset($_POST['user_name'])) {
     if ($Name == "") {
@@ -42,12 +46,12 @@ if (isset($_POST['user_gender'])) {
         $err = 1;
     }
 }
-if (isset($_POST['user_family_status'])) {
-    if ($FamilyStatus == "") {
-        $err_familyStatus = "Vous devez cocher une case.";
-        $err = 1;
-    }
-}
+// if (isset($_POST['user_family_status'])) {
+//     if ($FamilyStatus == "") {
+//         $err_familyStatus = "Vous devez cocher une case.";
+//         $err = 1;
+//     }
+// }
 if (isset($_POST['user_password'])) {
     if ($Password == "") {
         $err_password = "Vous devez entrer un mot de passe.";
@@ -66,27 +70,33 @@ if (isset($_POST['user_hobbys'])) {
         $err = 1;
     }
 }
-if ($err == 1) {
-    echo '<a href="javascript:history.back()">Erreurs : retour à la page récente.</a>';
-    echo $err_name;
-    echo $err_forename;
-    echo $err_gender;
-    echo $err_familyStatus;
-    echo $err_password;
-    echo $err_passion;
-    echo $err_hobbys;
+if (isset($_POST['user_pseudo'])) {
+    if ($Pseudo == "") {
+        $err_pseudo = "Vous devez choisir un pseudo.";
+        $err = 1;
+    }
 }
-
+if (isset($_POST['user_email'])) {
+    if ($Email == "") {
+        $err_email = "Vous devez entrer une adresse mail.";
+        $err = 1;
+    }
+}
 $Name = protect_montexte($Name);
 $Forename = protect_montexte($Forename);
-
+$Pseudo = protect_montexte($Pseudo);
+$Email = protect_montexte($_POST["user_email"]);
+if (!filter_var($Email, FILTER_VALIDATE_EMAIL)) {
+    $err_email = "L'adresse email n'est pas valide. Veuillez entrer une adresse de type : toto@exemple.com ";
+    $err = 1;
+} 
 switch ($Gender) {
     case "Femme":
         $Gender = "une femme";
         if ($FamilyStatus == "marié") {
             $FamilyStatus = "mariée";
         } else {
-            $FamilyStatus = "pas mariée";
+            $FamilyStatus = "célibataire";
         }
         break;
     case "Homme":
@@ -94,7 +104,7 @@ switch ($Gender) {
         if ($FamilyStatus == "marié") {
             $FamilyStatus = "marié";
         } else {
-            $FamilyStatus = "pas marié";
+            $FamilyStatus = "célibataire";
         }
         break;
     case "Non-binaire":
@@ -102,7 +112,7 @@ switch ($Gender) {
         if ($FamilyStatus == "marié") {
             $FamilyStatus = "marié(e)";
         } else {
-            $FamilyStatus = "pas marié(e)";
+            $FamilyStatus = "célibataire";
         }
         break;
 }
@@ -113,7 +123,21 @@ $_SESSION['user_family_status'] = $FamilyStatus;
 $_SESSION['user_password'] = $Password;
 $_SESSION['user_passion'] = $Passion;
 $_SESSION['user_hobbys'] = $Hobbys;
+$_SESSION['user_pseudo'] = $Pseudo;
+$_SESSION['user_email'] = $Email;
 
+if ($err == 1) {
+    echo '<a href="javascript:history.back()">Erreurs : retour à la page récente.</a>';
+    echo $err_name;
+    echo $err_forename;
+    echo $err_gender;
+    echo $err_familyStatus;
+    echo $err_password;
+    echo $err_passion;
+    echo $err_hobbys;
+    echo $err_pseudo;
+    echo $err_email;
+} else {
+echo"<h3><a href='affichage3.php'>Afficher</a></h3>";
+}
 ?>
-
-<h3><a href="affichage3.php">Afficher</a></h3>

@@ -8,17 +8,21 @@ if (!empty($_GET['action'] && $_GET['action'] === "deconnecter")) {
     unset($_COOKIE['user']);
     setcookie('user', '', time() - 10);
 }
+
+// On récupère le cookie si pas vide
+if (!empty($_COOKIE['user'])) {
+    $nom = $_COOKIE['user'];
+    echo$_COOKIE['user'];
+}
+
 // On teste si l'input est pas  vide
 // On crée le cookie et récupère le nom
 if (!empty($_POST['nom'])) {
     setcookie('user', $_POST['nom'],0);
     $nom = $_POST['nom'];
 }
+echo$_COOKIE['user'];
 
-// On récupère le cookie si pas vide
-if (!empty($_COOKIE['user'])) {
-    $nom = $_COOKIE['user'];
-}
 ?>
 
 

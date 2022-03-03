@@ -1,3 +1,17 @@
+<?php
+session_start();
+$Name = $_SESSION['user_name'];
+$Forename = $_SESSION['user_forename'];
+$Gender = $_SESSION['user_gender'];
+$FamilyStatus = $_SESSION['user_family_status'];
+$Password = $_SESSION['user_password'];
+$Passion = $_SESSION['user_passion'];
+$Hobbys = $_SESSION['user_hobbys'];
+$Pseudo = $_SESSION['user_pseudo'];
+$Email = $_SESSION['user_email'];
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,20 +21,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="stylesheet" href="css/bootstrap.min.css" />
     <link rel="stylesheet" href="css/custom.css" />
-    <?php
-    session_start();
-    $Name = $_SESSION['user_name'];
-    $Forename = $_SESSION['user_forename'];
-    $Gender = $_SESSION['user_gender'];
-    $FamilyStatus = $_SESSION['user_family_status'];
-    $Password = $_SESSION['user_password'];
-    $Passion = $_SESSION['user_passion'];
-    $Hobbys = $_SESSION['user_hobbys'];
-    $Pseudo = $_SESSION['user_pseudo'];
-    $Email = $_SESSION['user_email'];
 
-
-    ?>
     <title>Document</title>
 </head>
 
@@ -67,8 +68,9 @@
 
 <style>
     body {
-      background-color: #112f41;
+        background-color: #112f41;
     }
+
     .affiche {
         margin-top: 40px;
         background-color: mistyrose;
@@ -76,7 +78,7 @@
 
     h5 {
         margin-top: 20px;
-        border: 1px  solid black;
+        border: 1px solid black;
         background-color: white;
         padding: 10px 0px;
     }

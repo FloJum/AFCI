@@ -1,13 +1,8 @@
 <?php
 session_start();
-$Email = $_SESSION['user_email'];
-$_SESSION['user_email'] = $Email;
 
-include "../Exo_blog/myincludes/nav.php";
+include "./myincludes/nav.php";
 
-if (empty($_COOKIE['user_logged'])) {
-    header('Location:index.php?');
-}
 $Style = "";
 if (!empty($_COOKIE['user_pref'])) {
     $User2 = $_COOKIE['user_pref'];

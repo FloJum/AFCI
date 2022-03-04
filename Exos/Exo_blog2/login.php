@@ -1,29 +1,44 @@
 <?php
 session_start();
-require_once "../myincludes/fonctions_utiles.php";
-$init_email = "fjum@gmail.com";
-$init_password = "Trololol";
-$Email = "";
-$Password = "";
-$err = null;
-
-if (isset($_POST['user_email']) && isset($_POST['user_password'])) {
-    $Email = protect_montexte($_POST["user_email"]);
-    $Password = $_POST['user_password'];
+if (!empty($_COOKIE['user'])) {
+    $User2 = $_COOKIE['user'];
+    header("Location:index.php");
 }
-$_SESSION['user_email'] = $Email;
-$_SESSION['user_password'] = $Password;
-if ($Email === $init_email && $Password === $init_password) {
-    setcookie('user', $_POST['user_email'], time() + 24 * 3600 * 365, './decouvphp/Exos/Exo_blog/', '127.0.0.1', false, true);
-    //$UserCook = $_COOKIE['user'];
-   //$_SESSION['user_cookie'] = $UserCook;
-    header('Location:../accueil.php?');
-} else {
-    if (isset($_POST['user_email']) && isset($_POST['user_password'])) {
+
+
+require_once "./myincludes/fonctions_utiles.php";
+$err = null;
+// $Logins = array(
+//     "demo@dwwm.fr" => "laon",
+//     "admin@dwwm.fr" => "SecretX",
+//     "fjum@gmail.com" => "lol"
+// );
+$Login = array ();
+$Login [0] = array ('username' => 'foo', 'password' => 'foo123', 'role' => 'administrator');
+
+$Usermail = isset($_POST['user_email']) ? protect_montexte($_POST['user_email']) : '';
+$Userpass = isset($_POST['user_password']) ? $_POST['user_password'] : '';
+
+// if ($Logins[$Usermail] = $Logins[$Userpass]) {
+//     setcookie('usermail', $_POST['user_email'], time() + 24 * 3600 * 365);
+//     setcookie('user_logged', 'logged', time() + 24 * 3600 * 30);
+//     header('Location:index.php?');
+// } else {
+//     if ($Logins[$Usermail] != $Userpass) {
+//         $err = "<p style='color:red;margin-top:20px'>L'adresse mail ou le mot de passe est erroné.</p>";
+//     }
+// }
+if (isset($_POST['user_email']))
+foreach ($Logins as $mail => $pass) {
+    if ($mail == $Usermail && $pass == $Userpass) {
+        setcookie('usermail', $_POST['user_email'], time() + 24 * 3600 * 365);
+        setcookie('user_logged', 'logged', time() + 24 * 3600 * 30);
+        header('Location:index.php?');
+    } else {
         $err = "<p style='color:red;margin-top:20px'>L'adresse mail ou le mot de passe est erroné.</p>";
     }
 }
-setcookie('test', 'lol', time() + 24 * 60 * 60 * 365);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -32,7 +47,7 @@ setcookie('test', 'lol', time() + 24 * 60 * 60 * 365);
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link rel="stylesheet" href="../css/bootstrap.min.css" />
+    <link rel="stylesheet" href="./css/bootstrap.min.css" />
     <title>Document</title>
 </head>
 
@@ -49,7 +64,7 @@ setcookie('test', 'lol', time() + 24 * 60 * 60 * 365);
                 </div>
                 <div class="form-row mx-0">
                     <label for="password" class="col-4 offset-2">Votre mot de passe :</label>
-                    <input type="password" id="password" name="user_password" minlength="7" required />
+                    <input type="password" id="password" name="user_password" required />
                 </div>
                 <div class="text-center">
                     <button type="submit" name="btnsubmit" value="envoyer">Se connecter</button> <?= $err ?>
@@ -83,9 +98,11 @@ setcookie('test', 'lol', time() + 24 * 60 * 60 * 365);
         border-radius: 20px;
         border: 1px solid #033c73;
     }
-    h3{
+
+    h3 {
         padding: 30px 0px;
     }
+
     .formulaire div {
         margin: 40px;
     }
@@ -95,6 +112,7 @@ setcookie('test', 'lol', time() + 24 * 60 * 60 * 365);
         resize: none;
         border: 1px solid #0063b2ff !important;
     }
+
     button[type="submit"] {
         background-color: #32936f !important;
         color: whitesmoke;
@@ -104,6 +122,7 @@ setcookie('test', 'lol', time() + 24 * 60 * 60 * 365);
         margin-top: 30x;
         padding: 5px 30px;
     }
+
     button[type="submit"]:hover {
         background-color: whitesmoke !important;
         color: #32936f;

@@ -1,9 +1,7 @@
 <?php
 session_start();
 include "./myincludes/nav.php";
-if (empty($_COOKIE['user_logged'])) {
-  header('Location:index.php?');
-}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

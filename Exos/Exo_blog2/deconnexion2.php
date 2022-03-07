@@ -9,8 +9,10 @@ if (empty($_COOKIE['user_logged'])) {
 if (!empty($_GET['action'] && $_GET['action'] === "deconnecter")) {
     unset($_COOKIE['user_logged']);
     setcookie('user_logged',null, time() -5);
-    //header("Location:index.php");
-    //session_destroy();
+    unset($_COOKIE['role']);
+    setcookie('role',null, time()-5);
+    header("Location:index.php");
+    session_destroy();
 } else {
 
 }

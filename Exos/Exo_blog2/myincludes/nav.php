@@ -37,7 +37,9 @@
         <li class="nav-item">
           <a class="nav-link" href="blog.php">Blog</a>
         </li>
+        <form class="navbar-form my-2 my-sm-0" action="admin.php">
         <button class="btn btn-light btnAdmin me-3 ">Admin</button>
+        </form>
         </ul>
         <?php break; endswitch; ?>
         <form class="navbar-form my-2 my-sm-0" action="deconnexion.php">

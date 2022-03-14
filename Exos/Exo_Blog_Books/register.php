@@ -18,7 +18,7 @@ include "./myincludes/nav.php";
 <body>
     <main class="container-fluid">
         <div class="row">
-            <form action="" method="post" class="formulaire p-0 col-6 offset-3">
+            <form action="indexaction.php" method="post" class="formulaire p-0 col-6 offset-3">
                 <div class="row align-items-baseline" id="formcont">
                     <h3 class="col-7 offset-1 text-center pr-0">Formulaire de contact :</h3>
                     <h6 class="col-4 text-center small pl-0 ">* champ obligatoire</h6>
@@ -33,7 +33,7 @@ include "./myincludes/nav.php";
                 </div>
                 <div class="form-row mx-0">
                     <label for="passinput" class="col-2 offset-1">Mot de passe* :</label>
-                    <input class="col-3" type="password" id="passinput" name="user_pass" placeholder="Votre pseudo" required />
+                    <input class="col-3" type="password" id="passinput" name="user_password" placeholder="Votre pseudo" required />
                 </div>
                 <div class="row text-center mx-0 ">
                     <input type="submit" name="btnregister" value="Register" class="col-2 offset-5">

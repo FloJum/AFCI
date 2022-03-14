@@ -10,7 +10,7 @@ $result = mysqli_query($conn, $sql);
 $nbreLivresArch = mysqli_num_rows($result);
 mysqli_free_result($result);
 
-// AJOUTER  LIVRE
+// AJOUTER LIVRE
 if (isset($_POST['insert'])) {
     $titre = $_POST["book_title"];
     $auteur = $_POST["book_autor"];
@@ -97,7 +97,7 @@ if (isset($_POST['unarchivedbook'])) {
 
 
 // COMMANDER 
-if(isset($_POST['commander'])) {
+if (isset($_POST['commander'])) {
     $sql = "SELECT * FROM books WHERE id=$_POST[commander]";
     $upbook = mysqli_query($conn, $sql);
     foreach ($upbook as $val) {
@@ -111,12 +111,16 @@ if(isset($_POST['commander'])) {
 }
 
 // CREATION COMPTE
-if(isset($_POST['Register'])) {
+if (isset($_POST['btnregister'])) {
     $pseudo = $_POST['user_pseudo'];
     $mail = $_POST['user_email'];
     $password = $_POST['user_password'];
     $role = "visiteur";
     $sql = "INSERT INTO member (mail,password,pseudo,role) 
                         VALUES ('$mail','$password','$pseudo','$role')";
-    $result = mysqli_query($conn, $sql);
+    $log = mysqli_connect("localhost", "root", "", "user");
+    $result = mysqli_query($log, $sql);
+    mysqli_free_result($result);
+    mysqli_close($conn);
+    header('Location: login.php');
 }

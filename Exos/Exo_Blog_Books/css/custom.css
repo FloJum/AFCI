@@ -1,0 +1,90 @@
+.affiche{
+    background-color: deepskyblue;
+}
+/* p{
+    color:red;
+} */
+th {
+    background-color: #2fa4e7;
+}
+.btnAdmin{
+    color: red;
+}
+
+ /* ******************************ADMIN************************ */
+
+ body {
+    background-color: #00203FFF;
+    color: #ADEFD1FF;
+}
+
+.cadre {
+    background-color: #ADEFD1FF;
+    color: #00203FFF;
+    border-radius: 20px;
+    margin: 20px 0px;
+    border: 1px solid #00203FFF;
+}
+.form-row:first-child{
+    margin-top: 20px;
+}
+.form-row{
+    margin-top: 10px;
+}
+.valide {
+    margin: 20px 0px;
+
+}
+.archive {
+    margin: 10px 0px;
+    padding-bottom: 10px;
+}
+
+select {
+    background-color: #00203FFF !important;
+    color: #ADEFD1FF !important;
+    text-align: center;
+    text-align-last: center;
+}
+option{
+    text-align: center;
+}
+form.archive{
+    padding-bottom: 10px;
+}
+.BtnList form {
+    margin-top: 20px;
+}
+.entete {
+    padding: 20px 0px;
+    text-align: center;
+    border: 1px solid #ADEFD1FF;
+    border-radius: 15px;
+    margin-bottom: 40px;
+}
+
+span {
+    font-size: 20px;
+    font-style: italic;
+    margin-left: 50px;
+}
+
+tr {
+    border: 1px solid #00203FFF;
+}
+
+th {
+    padding: 15px 0px;
+    border: 1px solid #ADEFD1FF;
+}
+
+td {
+    padding: 15px 0px;
+    background-color: #ADEFD1FF;
+    color: #00203FFF;
+}
+
+.archive.btn {
+    background-color: #00203FFF !important;
+    color: #ADEFD1FF !important;
+}

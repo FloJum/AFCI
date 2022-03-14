@@ -1,10 +1,8 @@
 <?php
 session_start();
 include "./myincludes/nav.php";
-if (empty($_COOKIE['user_logged'])) {
-    header('Location:index.php?');
-}
-$Email = $_COOKIE['usermail'];
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -35,7 +33,7 @@ $Email = $_COOKIE['usermail'];
                 </div>
                 <div class="form-row mx-0">
                     <label for="emailinput" class="col-2 offset-1">Adresse email* :</label>
-                    <input class="col-3" type="mail" id="emailinput" name="user_email" value="<?= $Email ?>" required />
+                    <input class="col-3" type="mail" id="emailinput" name="user_email" placeholder="toto@exemple.com" required />
                 </div>
                 <div class="form-row mx-0">
                     <label for="message" class="col-2 offset-1">Posez votre question :</label>
@@ -61,9 +59,9 @@ $Email = $_COOKIE['usermail'];
     .formulaire {
         margin-top: 30px;
         background-color: #ADEFD1FF;
+        color: #00203FFF;
         border-radius: 20px;
         border: 1px solid #00203FFF;
-        color: #00203FFF;
     }
 
     .formulaire div {

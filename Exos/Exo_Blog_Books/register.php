@@ -1,10 +1,7 @@
 <?php
-session_start();
 include "./myincludes/nav.php";
-if (empty($_COOKIE['user_logged'])) {
-    header('Location:index.php?');
-}
-$Email = $_COOKIE['usermail'];
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,7 +13,6 @@ $Email = $_COOKIE['usermail'];
     <link rel="stylesheet" href="css/bootstrap.min.css" />
     <link rel="stylesheet" href="css/custom.css" />
 
-    <title>Document</title>
 </head>
 
 <body>
@@ -28,24 +24,19 @@ $Email = $_COOKIE['usermail'];
                     <h6 class="col-4 text-center small pl-0 ">* champ obligatoire</h6>
                 </div>
                 <div class="form-row mx-0">
-                    <label for="nominput" class="col-2 offset-1">Nom* :</label>
-                    <input class="col-3" type="text" id="nominput" name="user_name" placeholder="Votre nom" required />
-                    <label for="prenominput" class="col-2 text-center">Prénom* :</label>
-                    <input class="col-3" type="text" id="prenominput" name="user_forename" placeholder="Votre prénom" required />
+                    <label for="pseudoinput" class="col-2 offset-1">Pseudo* :</label>
+                    <input class="col-3" type="text" id="pseudoinput" name="user_pseudo" placeholder="Votre pseudo" required />
                 </div>
                 <div class="form-row mx-0">
                     <label for="emailinput" class="col-2 offset-1">Adresse email* :</label>
-                    <input class="col-3" type="mail" id="emailinput" name="user_email" value="<?= $Email ?>" required />
+                    <input class="col-3" type="mail" id="emailinput" name="user_email" placeholder="toto@exemple.com" required />
                 </div>
                 <div class="form-row mx-0">
-                    <label for="message" class="col-2 offset-1">Posez votre question :</label>
-                </div>
-                <div class="col-11 bg-warning ">
-                    <textarea class="form-control" id="messageinput" name="user_message" placeholder="Entrez votre question" rows="3" cols="10"></textarea>
+                    <label for="passinput" class="col-2 offset-1">Mot de passe* :</label>
+                    <input class="col-3" type="password" id="passinput" name="user_pass" placeholder="Votre pseudo" required />
                 </div>
                 <div class="row text-center mx-0 ">
-                    <input type="reset" value="Effacer" class="col-2 offset-1">
-                    <input type="submit" name="btnsubmit" value="Envoyer" class="col-2 offset-5">
+                    <input type="submit" name="btnregister" value="Register" class="col-2 offset-5">
                 </div>
             </form>
         </div>
@@ -61,9 +52,9 @@ $Email = $_COOKIE['usermail'];
     .formulaire {
         margin-top: 30px;
         background-color: #ADEFD1FF;
+        color: #00203FFF;
         border-radius: 20px;
         border: 1px solid #00203FFF;
-        color: #00203FFF;
     }
 
     .formulaire div {

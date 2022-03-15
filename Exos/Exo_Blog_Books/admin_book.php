@@ -4,7 +4,7 @@ require "../ExoMySQL_books/myincludes/DBlogin.php";
 require "indexaction.php";
 include "./myincludes/nav.php";
 
-if ($_SESSION['role'] != "admin" ) {
+if ($_SESSION['role'] != "admin") {
     header("Location:index.php");
 }
 $b = "<br>";
@@ -27,8 +27,58 @@ $b = "<br>";
 <body>
     <div class="container">
         <div class="row">
-            <div class="cadre col-6 text-center">
-                <form method="post" action="indexaction.php">
+            <div class="cadre col-8 offset-2 text-center">
+                <h3>Modification des utilisateurs :</h3>
+                <?php
+                $sql = "SELECT * FROM users WHERE role != 'admin'";
+                $result = mysqli_query($conn, $sql);
+                $liste = mysqli_fetch_all($result, MYSQLI_ASSOC); ?>
+                <div class="text-center archive">
+                    <?php if (!isset($_POST['select_user'])) : { ?>
+                            <?php if (!empty($liste)) : { ?>
+                                    <form method="post">
+                                        <select name="choixmembre" id="user_select" class="col-12">
+                                            <option>--Choisir un membre--</option>
+                                            <?php
+                                            foreach ($liste as $choice) { ?>
+                                                <option value="<?= $choice['id'] ?>"><?= $choice['pseudo'] . " - " . $choice['mail'] ?></option>
+                                            <?php } ?>
+                                        </select>
+                                        <button class='btn btn-sm col-12 archive' type="submit" name="select_user" value="<?= $choice['id'] ?>">Changer infos/membre</button>
+                                    </form>
+                            <?php }
+                            endif; ?>
+                            <?php if (isset($_POST['select_user'])) : { ?>
+                                    <form method="post" action="indexaction.php">
+                                        <div class="form-row mx-0 mt-3">
+                                            <label for="pseudo" class="col-4">Pseudo:</label>
+                                            <input class="col-6" type="text" id="pseudoinput" name="user_pseudo" value="<?= $Ch_pseudo ?>" />
+                                        </div>
+                                        <div class="form-row mx-0">
+                                            <label for="emailinput" class="col-4">Adresse mail:</label>
+                                            <input class="col-6" type="text" id="emailinput" name="user_email" value="<?= $Ch_mail ?>" />
+                                        </div>
+                                        <div class="form-row mx-0">
+                                            <label for="passinput" class="col-4">Mot de passe :</label>
+                                            <input class="col-6" type="text" id="passinput" name="user_password" value="<?= $Ch_pass ?>" />
+                                        </div>
+                                        <div class="form-row mx-0">
+                                            <label for="roleinput" class="col-4">Rôle :</label>
+                                            <input class="col-6" type="text" id="roleinput" name="user_role" value="<?= $Ch_role ?>" />
+                                        </div>
+                                        <div class="valide text-center">
+                                            <button class='btn btn-sm col-12 archive' type="submit" name="update_user" value="<?= $Ch_id ?>">Mettre à jour l'utilisateur</button>
+                                        </div>
+                                    </form>
+                            <?php }
+                            endif; ?>
+                        <?php }
+                    else : { ?>
+                            <p>Aucun membre enregistré !</p>
+                    <?php }
+                    endif; ?>
+                </div>
+                <!-- <form method="post" action="indexaction.php">
                     <div class="form-row mx-0 mt-3">
                         <label for="titre" class="col-4">Titre :</label>
                         <input class="col-6" type="text" id="titre" name="book_title" value="<?= $Ch_titre  ?>" />
@@ -41,6 +91,10 @@ $b = "<br>";
                         <label for="datepub" class="col-4">Date de publication :</label>
                         <input class="col-6" type="date" id="datepub" name="book_date_publi" value="<?= $Ch_datepubli ?>" />
                     </div>
+                    <div class="form-row mx-0">
+                                <label for="price" class="col-4">Prix :</label>
+                                <input class="col-6" type="text" id="price" name="book_price" value="<?= $Ch_prix ?>" />
+                            </div>
                     <div class="valide text-center">
                         <?php if (isset($_POST['update'])) : { ?>
                                 <button class='btn btn-warning btn-sm col-8 offset-1' type="submit" name="upbook" value="<?= $Ch_id ?>">Modifier un livre</button><br>
@@ -131,10 +185,11 @@ $b = "<br>";
                 <?php }
                     endif;
                 } ?>
-            </table>
+            </table> -->
+            </div>
         </div>
-    </div>
-    <script src="js/jquery-3.6.0.min.js"></script>
-    <script src="js/bootstrap.bundle.min.js"></script>
+        <script src="js/jquery-3.6.0.min.js"></script>
+        <script src="js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

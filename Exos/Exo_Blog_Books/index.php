@@ -19,13 +19,12 @@ include "./myincludes/nav.php";
 <body onload="checkCookie();">
     <div class="accueil">
         <div class="row">
-            <h1 class="col-12 text-center">Bienvenue.</h1>
+            <h1 class="col-12 text-center">Bienvenue <?php echo isset($_SESSION['pseudo']) ? $_SESSION['pseudo'] : "Visiteur"; ?> !</h1>
             <p class="col-8 offset-2">Ceci est la page d'accueil de mon site. Saviez-vous que vous pouvez changer le thème des pages en cliquant sur l'un des boutons ci-dessous ? :</p>
             <form  class="col-6 offset-3 text-center">
                 <button name="noel" onclick="setStyle('./css/noel.css');">Noël </button>
                 <button name="paques" onclick="setStyle('./css/paques.css');">Pâques</button>
             </form>
-            <p><?php  echo isset($_SESSION['role'])?></p>
         </div>
     </div>
     <script src="./js/fonctions.js"></script>

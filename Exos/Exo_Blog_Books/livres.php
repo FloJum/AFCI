@@ -2,7 +2,7 @@
 require "../ExoMySQL_books/myincludes/DBlogin.php";
 require "indexaction.php";
 include "./myincludes/nav.php";
-$b = "<br>"; 
+$b = "<br>";
 
 
 ?>
@@ -23,7 +23,7 @@ $b = "<br>";
 <body>
     <div class="container">
         <div class="row">
-            <?php if (isset($_SESSION['role']) == "admin") : { ?>
+            <?php if (isset($_SESSION['role']) && $_SESSION['role'] == "admin") : { ?>
                     <div class="cadre col-6 text-center">
                         <form method="post" action="indexaction.php">
                             <div class="form-row mx-0 mt-3">
@@ -36,7 +36,11 @@ $b = "<br>";
                             </div>
                             <div class="form-row mx-0">
                                 <label for="datepub" class="col-4">Date de publication :</label>
-                                <input class="col-6" type="text" id="datepub" name="book_date_publi" value="<?= $Ch_datepubli ?>" />
+                                <input class="col-6" type="date" id="datepub" name="book_date_publi" value="<?= $Ch_datepubli ?>" />
+                            </div>
+                            <div class="form-row mx-0">
+                                <label for="price" class="col-4">Prix :</label>
+                                <input class="col-6" type="text" id="price" name="book_price" value="<?= $Ch_prix ?>" />
                             </div>
                             <div class="valide text-center">
                                 <?php if (isset($_POST['update'])) : { ?>
@@ -62,7 +66,7 @@ $b = "<br>";
                             </div>
                         </form>
                         <?php if (isset($_POST['unarchived'])) : {
-                                $sql = "SELECT * FROM books WHERE isarchived=1";
+                                $sql = "SELECT * FROM book WHERE isarchived=1";
                                 $result = mysqli_query($conn, $sql);
                                 $archive = mysqli_fetch_all($result, MYSQLI_ASSOC); ?>
                                 <div class="text-center">
@@ -112,7 +116,7 @@ $b = "<br>";
                                 <td class="col-2"><?= $book['datepub'] ?></td>
                                 <td class="col-4">
                                     <div class="BtnList row">
-                                        <?php if (isset($_SESSION['role']) == "admin") : { ?>
+                                        <?php if (isset($_SESSION['role']) && $_SESSION['role'] == "admin") : { ?>
                                                 <form method="post" class="col-4">
                                                     <button class='btn btn-info btn-sm col-10 justify-content-center' type="submit" name="update" value="<?= $book['id'] ?>">Editer </button>
                                                 </form>
@@ -123,8 +127,13 @@ $b = "<br>";
                                                     <button class='btn btn-danger btn-sm col-10' type="submit" name="delete" value="<?= $book['id'] ?>">Supprimer</button>
                                                 </form>
                                             <?php }
-                                        else : { ?>
+                                        elseif (isset($_SESSION['role']) && $_SESSION['role'] == "membre") : { ?>
                                                 <form action="commande.php" method="post" class="col-12 text-center">
+                                                    <button class='btn btn-success btn-sm col-6' type="submit" name="commander" value="<?= $book['id'] ?>">Commander</button>
+                                                </form>
+                                            <?php }
+                                        else : { ?>
+                                                <form action="login.php" method="post" class="col-12 text-center">
                                                     <button class='btn btn-success btn-sm col-6' type="submit" name="commander" value="<?= $book['id'] ?>">Commander</button>
                                                 </form>
                                         <?php }

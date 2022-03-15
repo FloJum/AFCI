@@ -1,7 +1,3 @@
-<?php if (empty ($_COOKIE['role'])) {
-  $_COOKIE['role']= "";
-}
-?>
 <link rel="stylesheet" href="../exo_blog/css/bootstrap.min.css" />
 
 <nav class="navbar navbar-expand-lg navbar-dark">
@@ -20,10 +16,10 @@
           <a class="nav-link" href="contact.php">Contact</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="biblio.php">Biblio</a>
+          <a class="nav-link" href="livres.php">Livres</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="register.php">Register</a>
+          <a class="nav-link" href="commande.php">Commande</a>
         </li>
       </ul>
       <?php  ?>
@@ -32,14 +28,14 @@
         <form class="navbar-form my-2 my-sm-0" action="login.php">
           <button type="submit" class="btn btn-success">Membre</button>
         </form>
-      <?php else : switch($_SESSION['role']) : case "visiteur" : ?>
+      <?php else : switch($_SESSION['role']) : case "membre" : ?>
         <ul class="navbar-nav me-auto">
         <li class="nav-item">
           <a class="nav-link" href="blog.php">Blog</a>
         </li>
         </ul>
         <?php break; case "admin" :?>
-          <ul class="navbar-nav">
+          <ul class="navbar-nav me-auto">
         <li class="nav-item">
           <a class="nav-link" href="blog.php">Blog</a>
         </li>

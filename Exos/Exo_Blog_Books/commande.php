@@ -1,8 +1,9 @@
 <?php
-session_start();
-include "./myincludes/nav.php";
 require "indexaction.php";
-
+include "./myincludes/nav.php";
+// if(!isset($_SESSION['role'])) {
+//     header("Location : index.php?");
+// }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -35,7 +36,7 @@ require "indexaction.php";
                         <td class="col-3"><?= $Ch_titre ?></td>
                         <td class="col-3"><?= $Ch_auteur ?></td>
                         <td class="col-3"><?= $Ch_datepubli ?></td>
-                        <td class="col-3"><?= $Ch_id ?> €</td>
+                        <td class="col-3"><?= $Ch_prix ?> €</td>
                     </tr>
                 </table>
                 <div class="row text-center mx-0 ">

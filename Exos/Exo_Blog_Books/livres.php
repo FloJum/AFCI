@@ -1,5 +1,5 @@
 <?php
-require "../ExoMySQL_books/myincludes/DBlogin.php";
+// require "../ExoMySQL_books/myincludes/DBlogin.php";
 require "indexaction.php";
 include "./myincludes/nav.php";
 $b = "<br>";
@@ -17,7 +17,7 @@ $b = "<br>";
     <link rel="stylesheet" href="../Exo_Blog_Books/css/bootstrap.min.css" />
     <link rel="stylesheet" href="./css/custom.css" />
 
-    <title>Biblio</title>
+    <title>Livres</title>
 </head>
 
 <body>
@@ -117,14 +117,17 @@ $b = "<br>";
                                 <td class="col-4">
                                     <div class="BtnList row">
                                         <?php if (isset($_SESSION['role']) && $_SESSION['role'] == "admin") : { ?>
-                                                <form method="post" class="col-4">
-                                                    <button class='btn btn-info btn-sm col-10 justify-content-center' type="submit" name="update" value="<?= $book['id'] ?>">Editer </button>
+                                                <form method="post" class="col-3">
+                                                    <button class='btn btn-info btn-sm col-12' type="submit" name="update" value="<?= $book['id'] ?>">Editer </button>
                                                 </form>
-                                                <form action="indexaction.php" method="post" class="col-4">
-                                                    <button class='btn btn-secondary btn-sm col-10' type="submit" name="archive" value="<?= $book['id'] ?>">Archiver</button>
+                                                <form action="indexaction.php" method="post" class="col-3">
+                                                    <button class='btn btn-secondary btn-sm col-12' type="submit" name="archive" value="<?= $book['id'] ?>">Archiver</button>
                                                 </form>
-                                                <form action="indexaction.php" method="post" class="col-4">
-                                                    <button class='btn btn-danger btn-sm col-10' type="submit" name="delete" value="<?= $book['id'] ?>">Supprimer</button>
+                                                <form action="indexaction.php" method="post" class="col-3">
+                                                    <button class='btn btn-danger btn-sm col-12' type="submit" name="delete" value="<?= $book['id'] ?>">Supprimer</button>
+                                                </form>
+                                                <form action="commande.php" method="post" class="col-3">
+                                                    <button class='btn btn-success btn-sm col-12' type="submit" name="commander" value="<?= $book['id'] ?>">Commander</button>
                                                 </form>
                                             <?php }
                                         elseif (isset($_SESSION['role']) && $_SESSION['role'] == "membre") : { ?>

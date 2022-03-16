@@ -23,26 +23,35 @@ include "./myincludes/nav.php";
         <div class="row">
             <form action="" method="post" class="formulaire p-0 col-12">
                 <div class="row align-items-baseline" id="formcont">
-                    <h3 class="col-12 text-center pr-0">Formulaire de commande :</h3>
+                    <h3 class="col-12 text-center pr-0">Panier :</h3>
                 </div>
-                <table class="col-12 text-center">
-                    <tr class="col-12">
-                        <th class="col-3">Titre</th>
-                        <th class="col-2">Auteur</th>
-                        <th class="col-2">Date de publication</th>
-                        <th class="col-2">Prix</th>
-                    </tr>
-                    <tr class="col-12 ">
-                        <td class="col-3"><?= $Ch_titre ?></td>
-                        <td class="col-3"><?= $Ch_auteur ?></td>
-                        <td class="col-3"><?= $Ch_datepubli ?></td>
-                        <td class="col-3"><?= $Ch_prix ?> €</td>
-                    </tr>
-                </table>
-                <div class="row text-center mx-0 ">
-                    <input type="reset" value="Effacer" class="col-2 offset-1">
-                    <input type="submit" name="btnsubmit" value="Commander" class="col-2 offset-5">
-                </div>
+                <?php if (isset($Ch_titre) && !empty($Ch_titre)) : { ?>
+                        <table class="col-12 text-center">
+                            <tr class="col-12">
+                                <th class="col-3">Titre</th>
+                                <th class="col-2">Auteur</th>
+                                <th class="col-2">Date de publication</th>
+                                <th class="col-2">Prix</th>
+                            </tr>
+                            <tr class="col-12 ">
+                                <td class="col-3"><?= $Ch_titre ?></td>
+                                <td class="col-3"><?= $Ch_auteur ?></td>
+                                <td class="col-3"><?= $Ch_datepubli ?></td>
+                                <td class="col-3"><?= $Ch_prix ?> €</td>
+                            </tr>
+                        </table>
+                        <div class="row text-center mx-0 m-4 ">
+                            <input type="submit" name="btnsubmit" value="Commander" class="col-2 offset-5">
+                        </div>
+                    <?php }
+                else : { ?>
+                        <h4 class="text-center m-3">Votre panier est vide.</h4>
+                        <div class="cadrelivre col-12 text-center">
+                            <a class="btn btn-lg btnlivre" href="livres.php">Voir notre collection</a>
+                        </div>
+                <?php }
+                endif; ?>
+
             </form>
         </div>
     </main>
@@ -61,20 +70,16 @@ include "./myincludes/nav.php";
         margin: 20px 0px;
         border: 1px solid #00203FFF;
     }
-    h3{
+
+    h3 {
         padding: 20px 0px;
     }
+
     th {
-    padding: 15px 0px;
-    border: 1px solid #ADEFD1FF;
-    background-color: #00203FFF;
-    color: #ADEFD1FF;
-}
-    input[type="reset"] {
-        background-color: #f45b69 !important;
-        font-weight: bold;
-        border-radius: 20px;
-        border: 1px solid #f45b69 !important;
+        padding: 15px 0px;
+        border: 1px solid #ADEFD1FF;
+        background-color: #00203FFF;
+        color: #ADEFD1FF;
     }
 
     input[type="submit"] {
@@ -85,19 +90,32 @@ include "./myincludes/nav.php";
         border: 1px solid #32936f !important;
     }
 
-    input[type="reset"]:hover {
-        background-color: whitesmoke !important;
-        color: red;
-        font-weight: bold;
-        border-radius: 20px;
-        border: 1px solid red !important;
-    }
-
     input[type="submit"]:hover {
         background-color: whitesmoke !important;
         color: #32936f;
         font-weight: bold;
         border-radius: 20px;
         border: 1px solid #32936f !important;
+    }
+
+    .cadrelivre {
+        text-align: center;
+        align-self: center;
+        height: 300px;
+        border-radius: 20px ;
+        background: linear-gradient(rgba(8, 17, 20, 0.75), rgba(8, 17, 20, 0.75)),
+            url("./img/livre.jpg") no-repeat center/cover;
+    }
+
+    .btnlivre {
+        margin-top: 150px;
+        background-color: #00203FFF;
+        color: #ADEFD1FF;
+        border: 1px solid #ADEFD1FF;
+    }
+
+    .btnlivre:hover {
+        color: #00203FFF;
+        background-color:#ADEFD1FF;
     }
 </style>

@@ -8,7 +8,7 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarColor01">
-      <ul class="navbar-nav me-auto">
+      <ul class="navbar-nav mx-auto">
         <li class="nav-item">
           <a class="nav-link" href="apropos.php">A propos</a>
         </li>
@@ -21,33 +21,41 @@
         <li class="nav-item">
           <a class="nav-link" href="commande.php">Commande</a>
         </li>
+        <?php if (!isset($_SESSION['role'])) : ?>
+          <li class="nav-item">
+            <form class="navbar-form my-2 my-sm-0" action="login.php">
+              <button type="submit" class="btn btn-success">Membre</button>
+            </form>
+          </li>
+          <?php else : switch ($_SESSION['role']):
+            case "membre": ?>
+
+              <li class="nav-item">
+                <a class="nav-link" href="blog.php">Blog</a>
+              </li>
+
+            <?php break;
+            case '["admin"]': ?>
+
+              <li class="nav-item">
+                <a class="nav-link" href="blog.php">Blog</a>
+              </li>
+              <li class="nav-item">
+                <form class="navbar-form my-2 my-sm-0" action="admin_book.php">
+                  <button class="btn btn-light btnAdmin">Admin</button>
+                </form>
+              </li>
       </ul>
-      <?php  ?>
-        
-      <?php if (!isset($_SESSION['role'])) : ?>
-        <form class="navbar-form my-2 my-sm-0" action="login.php">
-          <button type="submit" class="btn btn-success">Membre</button>
-        </form>
-      <?php else : switch($_SESSION['role']) : case "membre" : ?>
-        <ul class="navbar-nav me-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="blog.php">Blog</a>
-        </li>
-        </ul>
-        <?php break; case "admin" :?>
-          <ul class="navbar-nav me-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="blog.php">Blog</a>
-        </li>
-        <form class="navbar-form my-2 my-sm-0" action="admin_book.php">
-        <button class="btn btn-light btnAdmin me-3 ">Admin</button>
-        </form>
-        </ul>
-        <?php break; endswitch; ?>
-        <form class="navbar-form my-2 my-sm-0" action="deconnexion.php">
-          <button class="btn btn-danger ">Déconnexion</button>
+  <?php break;
+          endswitch; ?>
+  <ul class="navbar-nav">
+    <li class="nav-item">
+      <form class="navbar-form my-2 my-sm-0" action="deconnexion.php">
+        <button class="btn btn-danger ">Déconnexion</button>
       </form>
-        <?php endif; ?>
+    </li>
+  </ul>
+<?php endif; ?>
     </div>
   </div>
 </nav>

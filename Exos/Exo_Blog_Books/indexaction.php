@@ -10,6 +10,15 @@ $result = mysqli_query($conn, $sql);
 $nbreLivresArch = mysqli_num_rows($result);
 mysqli_free_result($result);
 
+// ADMIN OU MEMBRE
+if (isset($_POST['admin'])) {
+    $_SESSION['role'] = '["admin"]';
+    header('Location: index.php');
+}
+if (isset($_POST['membre'])) {
+    $_SESSION['role'] = '["membre"]';
+    header('Location: index.php');
+}
 // AJOUTER LIVRE
 if (isset($_POST['insert'])) {
     $titre = $_POST["book_title"];
@@ -151,7 +160,7 @@ if (isset($_POST['btnregister'])) {
 $Ch_pseudo = $Ch_mail = $Ch_pass = $Ch_role = " ";
 if (isset($_POST['select_user'])) {
     $sql = "SELECT * FROM users WHERE id=$_POST[select_user]";
-    $uplist= mysqli_query($conn, $sql);
+    $uplist = mysqli_query($conn, $sql);
     foreach ($uplist as $val) {
         $Ch_pseudo = $val['pseudo'];
         $Ch_mail = $val['mail'];
@@ -161,15 +170,14 @@ if (isset($_POST['select_user'])) {
     }
     mysqli_free_result($uplist);
     mysqli_close($conn);
-   
 };
 // MODIFIER UTILISATEUR
 if (isset($_POST['update_user'])) {
     $id = $_POST['update_user'];
     $pseudo = $_POST['user_pseudo'];
-        $mail = $_POST['user_mail'];
-        $pass = $_POST['user_pass'];
-        $role = $_POST['user_role'];
+    $mail = $_POST['user_email'];
+    $pass = $_POST['user_password'];
+    $role = $_POST["user_role"];
     $sql = "UPDATE users SET mail='$mail',password='$pass',pseudo='$pseudo',role='$role' WHERE id=$id";
     $result = mysqli_query($conn, $sql);
     $Ch_pseudo = $Ch_mail = $Ch_pass = $Ch_role = "";

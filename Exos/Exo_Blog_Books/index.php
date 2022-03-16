@@ -25,6 +25,11 @@ include "./myincludes/nav.php";
                 <button name="noel" onclick="setStyle('./css/noel.css');">Noël </button>
                 <button name="paques" onclick="setStyle('./css/paques.css');">Pâques</button>
             </form>
+            <form method="post" action="indexaction.php"  class="col-6 offset-3 text-center">
+                <button name="admin">admin </button>
+                <button name="membre">membre</button>
+                <?php var_dump($_SESSION['role']) ?>
+            </form>
         </div>
     </div>
     <script src="./js/fonctions.js"></script>

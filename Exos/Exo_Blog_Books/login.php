@@ -14,7 +14,6 @@ if (isset($_POST['btnconnex']) && $_POST['btnconnex'] == 'Connexion') {
         $sql = "SELECT count(*) FROM users WHERE mail='$mail' AND password='$password'";
         $req = mysqli_query($Logdb, $sql);
         $data = mysqli_fetch_array($req);
-        var_dump($data);
         
 
         if ($data[0] == 1) {
@@ -24,16 +23,15 @@ if (isset($_POST['btnconnex']) && $_POST['btnconnex'] == 'Connexion') {
             $req = mysqli_query($Logdb, $sql);
             $data = mysqli_fetch_array($req);
             $_SESSION['pseudo'] = $data['pseudo'];
-            if ($data['role'] == 'admin') {
+            var_dump($data['role']);
+            if ($data['role'] == '["admin"]') {
                 $_SESSION['role'] = $data['role'];
-                echo $_SESSION['role'];
                 mysqli_free_result($req);
                 mysqli_close($Logdb);
                 header('Location:index.php?');
                 exit();
             } else {
                 $_SESSION['role'] = $data['role'];
-                echo $_SESSION['role'];
                 mysqli_free_result($req);
                 mysqli_close($Logdb);
                 header('Location:index.php?');

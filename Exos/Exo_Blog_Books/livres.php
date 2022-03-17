@@ -23,7 +23,7 @@ $b = "<br>";
 <body>
     <div class="container">
         <div class="row">
-            <?php if (isset($_SESSION['role']) && $_SESSION['role'] == "admin") : { ?>
+            <?php if (isset($_SESSION['role']) && $_SESSION['role'] == '["admin"]') : { ?>
                     <div class="cadre col-6 text-center">
                         <form method="post" action="indexaction.php">
                             <div class="form-row mx-0 mt-3">
@@ -116,7 +116,7 @@ $b = "<br>";
                                 <td class="col-2"><?= $book['datepub'] ?></td>
                                 <td class="col-4">
                                     <div class="BtnList row">
-                                        <?php if (isset($_SESSION['role']) && $_SESSION['role'] == "admin") : { ?>
+                                        <?php if (isset($_SESSION['role']) && $_SESSION['role'] == '["admin"]') : { ?>
                                                 <form method="post" class="col-3">
                                                     <button class='btn btn-info btn-sm col-12' type="submit" name="update" value="<?= $book['id'] ?>">Editer </button>
                                                 </form>
@@ -130,7 +130,7 @@ $b = "<br>";
                                                     <button class='btn btn-success btn-sm col-12' type="submit" name="commander" value="<?= $book['id'] ?>">Commander</button>
                                                 </form>
                                             <?php }
-                                        elseif (isset($_SESSION['role']) && $_SESSION['role'] == "membre") : { ?>
+                                        elseif (isset($_SESSION['role']) && $_SESSION['role'] == '["membre"]') : { ?>
                                                 <form action="commande.php" method="post" class="col-12 text-center">
                                                     <button class='btn btn-success btn-sm col-6' type="submit" name="commander" value="<?= $book['id'] ?>">Commander</button>
                                                 </form>

@@ -4,9 +4,7 @@
 /* p{
     color:red;
 } */
-th {
-    background-color: #2fa4e7;
-}
+
 .btnAdmin{
     color: red;
 }
@@ -76,12 +74,14 @@ tr {
 th {
     padding: 15px 0px;
     border: 1px solid #ADEFD1FF;
+    background-color: #00203FFF !important;
+    color: #ADEFD1FF !important;
 }
 
 td {
     padding: 15px 0px;
-    background-color: #ADEFD1FF;
-    color: #00203FFF;
+    background-color: #ADEFD1FF !important;
+    color: #00203FFF !important;
 }
 
 .archive.btn {

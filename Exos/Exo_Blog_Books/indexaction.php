@@ -1,11 +1,12 @@
 <?php
 session_start();
-include "../ExoMySQL_books/myincludes/DBlogin.php";
+include "./myincludes/DBlogin.php";
+include "./myincludes/fonctions_utiles.php";
 $sql = "SELECT * FROM book";
 $result = mysqli_query($conn, $sql);
 $nbreLivres = mysqli_num_rows($result);
 $all = mysqli_fetch_all($result, MYSQLI_ASSOC);
-$sql = "SELECT * FROM book WHERE isarchived=1";
+$sql = "SELECT * FROM book WHERE isarchived LIKE 1";
 $result = mysqli_query($conn, $sql);
 $nbreLivresArch = mysqli_num_rows($result);
 mysqli_free_result($result);
@@ -37,7 +38,7 @@ if (isset($_POST['insert'])) {
 // SUPPRIMER LIVRE
 if (isset($_POST['delete'])) {
     $id = $_POST['delete'];
-    $sql = "DELETE FROM book WHERE id = $id";
+    $sql = "DELETE FROM book WHERE id LIKE '$id'";
     $result = mysqli_query($conn, $sql);
 
     mysqli_close($conn);
@@ -46,7 +47,7 @@ if (isset($_POST['delete'])) {
 // FORMULAIRE LIVRE UPDATE 
 $Ch_titre = $Ch_auteur = $Ch_datepubli = $Ch_prix = "";
 if (isset($_POST['update'])) {
-    $sql = "SELECT * FROM book WHERE id=$_POST[update]";
+    $sql = "SELECT * FROM book WHERE id LIKE '$_POST[update]'";
     $upbook = mysqli_query($conn, $sql);
     foreach ($upbook as $val) {
         $Ch_titre = $val['titre'];
@@ -66,7 +67,7 @@ if (isset($_POST['upbook'])) {
     $auteur = $_POST["book_autor"];
     $datepubli = $_POST["book_date_publi"];
     $prix = $_POST['book_price'];
-    $sql = "UPDATE book SET titre='$titre',auteur='$auteur',datepub='$datepubli',prix='$prix' WHERE id=$id";
+    $sql = "UPDATE book SET titre='$titre',auteur='$auteur',datepub='$datepubli',prix='$prix' WHERE id LIKE '$id'";
     $result = mysqli_query($conn, $sql);
     $Btn = "Ajouter un livre";
     $Ch_titre = $Ch_auteur = $Ch_datepubli = $Ch_prix = "";
@@ -85,7 +86,7 @@ if (isset($_POST['all_archived'])) {
 }
 
 if (isset($_POST['unarch'])) {
-    $sql = "UPDATE book SET isarchived=0";
+    $sql = "UPDATE book SET isarchived lIKE 0";
     $result = mysqli_query($conn, $sql);
     $Archiv = "unarch";
     mysqli_close($conn);
@@ -94,14 +95,14 @@ if (isset($_POST['unarch'])) {
 
 if (isset($_POST['archive'])) {
     $id = $_POST['archive'];
-    $sql = "UPDATE book SET isarchived=1 WHERE id=$id";
+    $sql = "UPDATE book SET isarchived=1 WHERE id LIKE '$id'";
     $result = mysqli_query($conn, $sql);
     mysqli_close($conn);
     header('Location: livres.php');
 }
 if (isset($_POST['unarchivedbook'])) {
     $id = $_POST['choixlivre'];
-    $sql = "UPDATE book SET isarchived=0 WHERE id=$id";
+    $sql = "UPDATE book SET isarchived=0 WHERE id LIKE '$id'";
     $result = mysqli_query($conn, $sql);
     mysqli_close($conn);
     header('Location: livres.php');
@@ -110,7 +111,7 @@ if (isset($_POST['unarchivedbook'])) {
 
 // COMMANDER 
 if (isset($_POST['commander'])) {
-    $sql = "SELECT * FROM book WHERE id=$_POST[commander]";
+    $sql = "SELECT * FROM book WHERE id LIKE '$_POST[commander]'";
     $upbook = mysqli_query($conn, $sql);
     foreach ($upbook as $val) {
         $Ch_titre = $val['titre'];
@@ -123,43 +124,64 @@ if (isset($_POST['commander'])) {
 }
 
 // CREATION COMPTE
+
 if (isset($_POST['btnregister'])) {
     $pseudo = $_POST['user_pseudo'];
-    $mail = $_POST['user_email'];
-    $password = $_POST['user_password'];
-    $role = '["membre"]';
-    $sql = "INSERT INTO users (mail,password,pseudo,role) 
-                        VALUES ('$mail','$password','$pseudo','$role')";
-    $log = mysqli_connect("localhost", "root", "", "books");
-    $result = mysqli_query($conn, $sql);
-    mysqli_free_result($result);
-    mysqli_close($conn);
-    $_SESSION['mail'] = $_POST['user_email'];
-    $sql = "SELECT * FROM users WHERE mail='$mail' AND password='$password'";
-    $req = mysqli_query($log, $sql);
+    $mail = protect_montexte(mysqli_real_escape_string($conn, $_POST['user_email']));
+    $password = protect_montexte(mysqli_real_escape_string($conn, $_POST['user_password']));
+    $password2 = protect_montexte(mysqli_real_escape_string($conn, $_POST['user_password2']));
+    //VERIF SI MAIL DEJA PRESENT
+    $sql = "SELECT count(*) FROM users WHERE mail LIKE '$mail'";
+    $req = mysqli_query($conn, $sql);
     $data = mysqli_fetch_array($req);
-    $_SESSION['pseudo'] = $data['pseudo'];
-    if ($data['role'] == 'admin') {
-        $_SESSION['role'] = $data['role'];
-        echo $_SESSION['role'];
-        mysqli_free_result($req);
-        mysqli_close($Logdb);
-        header('Location:index.php?');
-        exit();
+    if ($data[0] == 1) {
+        $mailerr = "Adresse email déjà utilisée par un autre membre.";
     } else {
-        $_SESSION['role'] = $data['role'];
-        echo $_SESSION['role'];
         mysqli_free_result($req);
-        mysqli_close($log);
-        header('Location:index.php?');
-        exit();
+        // VERIF CONFORMITE MDP
+        check_mdp_format($password);
+        if (check_mdp_format($password) != true) {
+            $mdperr = "Votre mot de passe doit contenir au moins 3 caractères dont 1 majuscule, 1 minuscule et 1 chiffre.";
+        } else {
+            if ($password != $password2) {
+                $pass2err = "Les mots de passe ne correspondent pas.";
+            } else {
+                $passhash = password_hash($password, PASSWORD_DEFAULT);
+                $role = '["membre"]';
+                $sql = "INSERT INTO users (mail,password,pseudo,role) 
+                            VALUES ('$mail','$passhash','$pseudo','$role')";
+                $result = mysqli_query($conn, $sql);
+                $_SESSION['mail'] = $mail;
+                header('Location:login.php?');
+                //LOGIN APRES INSCRIPT
+                $sql = "SELECT * FROM users WHERE mail LIKE '$mail' AND password LIKE'$passhash'";
+                $req = mysqli_query($conn, $sql);
+                $data = mysqli_fetch_array($req, MYSQLI_ASSOC );
+                $_SESSION['pseudo'] = $data['pseudo'];
+                if ($data['role'] == '["admin"]') {
+                    $_SESSION['role'] = $data['role'];
+                    echo $_SESSION['role'];
+                    mysqli_free_result($req);
+                    mysqli_close($conn);
+                    header('Location:index.php?');
+                    exit();
+                } else {
+                    $_SESSION['role'] = $data['role'];
+                    echo $_SESSION['role'];
+                    mysqli_free_result($req);
+                    mysqli_close($conn);
+                    header('Location:index.php?');
+                    exit();
+                }
+            }
+        }
     }
 }
 
 // FORMULAIRE UTILISATEUR UPDATE
 $Ch_pseudo = $Ch_mail = $Ch_pass = $Ch_role = " ";
 if (isset($_POST['select_user'])) {
-    $sql = "SELECT * FROM users WHERE id=$_POST[select_user]";
+    $sql = "SELECT * FROM users WHERE id LIKE '$_POST[select_user]'";
     $uplist = mysqli_query($conn, $sql);
     foreach ($uplist as $val) {
         $Ch_pseudo = $val['pseudo'];
@@ -178,7 +200,7 @@ if (isset($_POST['update_user'])) {
     $mail = $_POST['user_email'];
     $pass = $_POST['user_password'];
     $role = $_POST["user_role"];
-    $sql = "UPDATE users SET mail='$mail',password='$pass',pseudo='$pseudo',role='$role' WHERE id=$id";
+    $sql = "UPDATE users SET mail='$mail',password='$pass',pseudo='$pseudo',role='$role' WHERE id LIKE '$id'";
     $result = mysqli_query($conn, $sql);
     $Ch_pseudo = $Ch_mail = $Ch_pass = $Ch_role = "";
     mysqli_free_result($result);

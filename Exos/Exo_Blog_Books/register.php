@@ -1,6 +1,6 @@
 <?php
 include "./myincludes/nav.php";
-
+include "indexaction.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,22 +17,29 @@ include "./myincludes/nav.php";
 <body>
     <main class="container-fluid">
         <div class="row">
-            <form action="indexaction.php" method="post" class="formulaire p-0 col-6 offset-3">
+            <form method="post" class="formulaire p-0 col-6 offset-3">
                 <div class="row align-items-baseline" id="formcont">
                     <h3 class="col-7 offset-1 text-center pr-0">Formulaire d'inscription :</h3>
                     <h6 class="col-4 text-center small pl-0 ">* champ obligatoire</h6>
                 </div>
                 <div class="form-row mx-0">
-                    <label for="pseudoinput" class="col-2 offset-1">Pseudo* :</label>
+                    <label for="pseudoinput" class="col-3 offset-1">Pseudo* :</label>
                     <input class="col-3" type="text" id="pseudoinput" name="user_pseudo" placeholder="Votre pseudo" required />
                 </div>
                 <div class="form-row mx-0">
-                    <label for="emailinput" class="col-2 offset-1">Adresse email* :</label>
+                    <label for="emailinput" class="col-3 offset-1">Adresse email* :</label>
                     <input class="col-3" type="mail" id="emailinput" name="user_email" placeholder="toto@exemple.com" required />
+                    <p class="err text-center"><?php echo !empty($mailerr) ? $mailerr : ""; ?></p>
                 </div>
                 <div class="form-row mx-0">
-                    <label for="passinput" class="col-2 offset-1">Mot de passe* :</label>
-                    <input class="col-3" type="password" id="passinput" name="user_password" placeholder="Votre pseudo" required />
+                    <label for="passinput" class="col-3 offset-1">Mot de passe* :</label>
+                    <input class="col-3" type="password" id="passinput" name="user_password" placeholder="Votre mot de passe" required />
+                </div>
+                <div class="form-row mx-0">
+                    <label for="passinput2" class="col-3 offset-1">Confirmer le mot de passe* :</label>
+                    <input class="col-3" type="password" id="passinput2" name="user_password2" placeholder="Votre mot de passe" required />
+                    <p class="err text-center"><?php echo !empty($pass2err) ? $pass2err : ""; ?></p>
+                    <p class="err text-center"><?php echo !empty($mdperr) ? $mdperr : ""; ?></p>
                 </div>
                 <div class="row text-center mx-0 ">
                     <input type="submit" name="btnregister" value="S'inscrire" class="col-2 offset-5">
@@ -58,6 +65,11 @@ include "./myincludes/nav.php";
 
     .formulaire div {
         margin: 20px;
+    }
+
+    .err {
+        margin-top: 20px;
+        color: red;
     }
 
     input,

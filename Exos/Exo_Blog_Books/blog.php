@@ -55,7 +55,5 @@ require_once "./myincludes/blog_data_alt.php";
     table {
         margin-top: 20px;
     }
-    td{
-        color:#00203FFF !important;
-    }
+    
 </style>

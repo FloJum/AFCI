@@ -4,7 +4,7 @@ require "../ExoMySQL_books/myincludes/DBlogin.php";
 require "indexaction.php";
 include "./myincludes/nav.php";
 
-if ($_SESSION['role'] != "admin") {
+if ($_SESSION['role'] != '["admin"]') {
     header("Location:index.php");
 }
 $b = "<br>";
@@ -70,6 +70,7 @@ $b = "<br>";
                                     <label for="roleinput" class="col-4">Rôle :</label>
                                     <input class="col-6" type="text" id="roleinput" name="user_role" value="<?= $Ch_role ?>" />
                                 </div>
+                                <?php var_dump($Ch_role) ?>
                                 <div class="valide text-center">
                                     <button class='btn btn-sm col-12 archive' type="submit" name="update_user" value="<?= $Ch_id ?>">Mettre à jour l'utilisateur</button>
                                 </div>

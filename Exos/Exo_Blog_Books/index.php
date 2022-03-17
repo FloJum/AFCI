@@ -24,11 +24,12 @@ include "./myincludes/nav.php";
             <form  class="col-6 offset-3 text-center">
                 <button name="noel" onclick="setStyle('./css/noel.css');">Noël </button>
                 <button name="paques" onclick="setStyle('./css/paques.css');">Pâques</button>
+                <button name="paques" onclick="setStyle('./css/custom.css');">Normal</button>
             </form>
             <form method="post" action="indexaction.php"  class="col-6 offset-3 text-center">
                 <button name="admin">admin </button>
                 <button name="membre">membre</button>
-                <?php var_dump($_SESSION['role']) ?>
+                <?php if(isset($_SESSION['role'])) : {var_dump($_SESSION['role']);} endif; ?>
             </form>
         </div>
     </div>

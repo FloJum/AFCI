@@ -21,41 +21,45 @@
         <li class="nav-item">
           <a class="nav-link" href="commande.php">Commande</a>
         </li>
-        <?php if (!isset($_SESSION['role'])) : ?>
-          <li class="nav-item">
-            <form class="navbar-form my-2 my-sm-0" action="login.php">
-              <button type="submit" class="btn btn-success">Membre</button>
-            </form>
-          </li>
-          <?php else : switch ($_SESSION['role']):
-            case "membre": ?>
+        <?php if (isset($_SESSION['role'])) : {
+            switch ($_SESSION['role']):
+              case '["membre"]': ?>
+                <li class="nav-item">
+                  <a class="nav-link" href="blog.php">Blog</a>
+                </li>
+              <?php break;
+              case '["admin"]': ?>
 
-              <li class="nav-item">
-                <a class="nav-link" href="blog.php">Blog</a>
-              </li>
-
-            <?php break;
-            case '["admin"]': ?>
-
-              <li class="nav-item">
-                <a class="nav-link" href="blog.php">Blog</a>
-              </li>
-              <li class="nav-item">
-                <form class="navbar-form my-2 my-sm-0" action="admin_book.php">
-                  <button class="btn btn-light btnAdmin">Admin</button>
-                </form>
-              </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="blog.php">Blog</a>
+                </li>
+                <li class="nav-item">
+                  <form class="navbar-form my-2 my-sm-0" action="admin_book.php">
+                    <button class="btn btn-light btnAdmin">Admin</button>
+                  </form>
+                </li>
+        <?php break;
+            endswitch;
+          }
+        endif; ?>
       </ul>
-  <?php break;
-          endswitch; ?>
-  <ul class="navbar-nav">
-    <li class="nav-item">
-      <form class="navbar-form my-2 my-sm-0" action="deconnexion.php">
-        <button class="btn btn-danger ">Déconnexion</button>
-      </form>
-    </li>
-  </ul>
-<?php endif; ?>
+      <ul class="navbar-nav">
+        <?php if (isset($_SESSION['role'])) : { ?>
+            <li class="nav-item">
+              <form class="navbar-form my-2 my-sm-0" action="deconnexion.php">
+                <button class="btn btn-danger ">Déconnexion</button>
+              </form>
+            </li>
+          <?php }
+        else : { ?>
+            <li class="nav-item">
+              <form class="navbar-form my-2 my-sm-0" action="login.php">
+                <button type="submit" class="btn btn-success">Membre</button>
+              </form>
+            </li>
+        <?php }
+        endif; ?>
+      </ul>
     </div>
   </div>
 </nav>

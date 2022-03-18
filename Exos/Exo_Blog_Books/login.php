@@ -1,9 +1,10 @@
 <?php
+session_start();
 require_once "./myincludes/fonctions_utiles.php";
 include "./myincludes/nav.php";
 $err = null;
 
-// Jean Mich = Mich2 Tutu= Danseur2 Wolf =  Demo = La0n
+// Jean Mich = Mich2 Tutu= Danseur2 Wolf =Lol2   Demo = La0n Admin = SecretX1
 
 if (isset($_POST['btnconnex']) && $_POST['btnconnex'] == 'Connexion') {
     if ((isset($_POST['user_email']) && !empty($_POST['user_email'])) && (isset($_POST['user_password']) && !empty($_POST['user_password']))) {
@@ -11,44 +12,30 @@ if (isset($_POST['btnconnex']) && $_POST['btnconnex'] == 'Connexion') {
         if (mysqli_connect_error($conn)) {
             die("Connexion à la BDD échouée.");
         }
-        $mail = protect_montexte(mysqli_real_escape_string($conn,$_POST['user_email']));
-        $password = protect_montexte(mysqli_real_escape_string($conn,$_POST['user_password']));
-        $password = md5($password);
-        $sql = "SELECT count(*) FROM users WHERE mail LIKE '$mail' AND password LIKE'$password'";
+        $mail = protect_montexte(mysqli_real_escape_string($conn, $_POST['user_email']));
+        $password = protect_montexte(mysqli_real_escape_string($conn, $_POST['user_password']));
+        $sql = "SELECT * FROM users WHERE mail LIKE '$mail'";
         $req = mysqli_query($conn, $sql);
-        $data = mysqli_fetch_array($req, MYSQLI_BOTH);
-        
-        // mysqli_query('SET NAMES utf8');
-        // $var = mysqli_real_escape_string("\xbf\x27 OR 1=1 /*");
-        // mysqli_query("SELECT * FROM test WHERE name = '$var' LIMIT 1");
-        if ($data[0] == 1) {
-            session_start();
-            $_SESSION['mail'] = $_POST['user_email'];
-            $sql = "SELECT * FROM users WHERE mail LIKE '$mail' AND password LIKE'$password'";
-            $req = mysqli_query($conn, $sql);
-            $data = mysqli_fetch_array($req);
-            $_SESSION['pseudo'] = $data['pseudo'];
-            var_dump($data['role']);
-            if ($data['role'] == '["admin"]') {
-                $_SESSION['role'] = $data['role'];
+        var_dump($req);
+        if (mysqli_num_rows($req) > 0) {
+            $data = mysqli_fetch_array($req, MYSQLI_ASSOC);
+            if (password_verify($password, $data['password'])) {
+                $_SESSION['mail'] = $mail;
+                $_SESSION['pseudo'] = $data['pseudo'];
+                if ($data['role'] == '["admin"]') {
+                    $_SESSION['role'] = $data['role'];
+                } else {
+                    $_SESSION['role'] = $data['role'];
+                }
                 mysqli_free_result($req);
                 mysqli_close($conn);
                 header('Location:index.php?');
-                exit();
-            } else {
-                $_SESSION['role'] = $data['role'];
-                mysqli_free_result($req);
-                mysqli_close($conn);
-                header('Location:index.php?');
-                exit();
+            }else {
+                $err = "<p style='color:red;margin-top:20px'>L'adresse mail ou le mot de passe est erroné.</p>";
             }
-        } elseif ($data[0] == 0) {
-            $err = "<p style='color:red;margin-top:20px'>L'adresse mail ou le mot de passe est erroné.</p>";
         } else {
-            $err = 'Problème dans la base de données : plusieurs membres ont les mêmes identifiants de connexion.';
+            $err = "<p style='color:red;margin-top:20px'>L'adresse mail ou le mot de passe est faux.</p>";
         }
-    } else {
-        $err = 'Au moins un des champs est vide.';
     }
 }
 
@@ -67,9 +54,9 @@ if (isset($_POST['btnconnex']) && $_POST['btnconnex'] == 'Connexion') {
 
 <body>
     <main class="container">
-        <div class="row">
-            
-            <form method="post" class="formulaire p-0 col-5 offset-1">
+        <div class="login row">
+
+            <form method="post" class="formulaire col-5 offset-1">
                 <div class="text-center">
                     <h3 class="text-decoration-underline">Veuillez vous connecter :</h3>
                 </div>
@@ -82,7 +69,7 @@ if (isset($_POST['btnconnex']) && $_POST['btnconnex'] == 'Connexion') {
                     <input type="password" id="password" name="user_password" required />
                 </div>
                 <div class="text-center">
-                    <button type="submit" name="btnconnex" value="Connexion">Se connecter</button> <?= $err ?>
+                    <button class="valid" type="submit" name="btnconnex" value="Connexion">Se connecter</button> <?= $err ?>
                 </div>
             </form>
             <form action="register.php" method="post" class="formulaire col-5 offset-1 ">
@@ -90,10 +77,10 @@ if (isset($_POST['btnconnex']) && $_POST['btnconnex'] == 'Connexion') {
                     <h3 class="text-decoration-underline">Pas encore membre ? :</h3>
                 </div>
                 <div class="text-center">
-                    <button type="submit" name="btninsc" value="Inscredir">S'inscrire</button>
+                    <button class="valid" type="submit" name="btninsc" value="Inscredir">S'inscrire</button>
                 </div>
             </form>
-           
+
         </div>
 
 
@@ -101,45 +88,3 @@ if (isset($_POST['btnconnex']) && $_POST['btnconnex'] == 'Connexion') {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js" integrity="sha512-pax4MlgXjHEPfCwcJLQhigY7+N8rt6bVvWLFyUMuxShv170X53TRzGPmPkZmGBhk+jikR8WBM4yl7A9WMHHqvg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </body>
-
-<style>
-    .formulaire {
-        margin-top: 200px;
-        background-color: #ADEFD1FF;
-        color: #00203FFF;
-        border-radius: 20px;
-        border: 1px solid #00203FFF;
-    }
-
-    h3 {
-        padding: 30px 0px;
-    }
-
-    .formulaire div {
-        margin: 40px;
-    }
-
-    input {
-        background-color: #b3c7d6ff !important;
-        resize: none;
-        border: 1px solid #0063b2ff !important;
-    }
-
-    button[type="submit"] {
-        background-color: #32936f !important;
-        color: whitesmoke;
-        font-weight: bold;
-        border-radius: 20px;
-        border: 1px solid #32936f;
-        margin-top: 30x;
-        padding: 5px 30px;
-    }
-
-    button[type="submit"]:hover {
-        background-color: whitesmoke !important;
-        color: #32936f;
-        font-weight: bold;
-        border-radius: 20px;
-        border: 1px solid #32936f !important;
-    }
-</style>

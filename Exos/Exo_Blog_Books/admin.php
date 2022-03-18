@@ -32,20 +32,19 @@ $b = "<br>";
                 <?php $conn = mysqli_connect($host, $user, $pass, $db);
                 $sql = "SELECT * FROM users WHERE role != 'admin'";
                 $result = mysqli_query($conn, $sql);
-                $liste = mysqli_fetch_all($result, MYSQLI_ASSOC);
-                var_dump($_POST['select_user']) ?>
+                $liste = mysqli_fetch_all($result, MYSQLI_ASSOC); ?>
                 <div class="text-center archive">
 
                     <?php if (!empty($liste)) : { ?>
                             <form method="post">
-                                <select name="choixmembre" id="user_select" class="col-12">
+                                <select name="user_select" id="user_select" class="col-12">
                                     <option>--Choisir un membre--</option>
                                     <?php
                                     foreach ($liste as $choice) { ?>
                                         <option value="<?= $choice['id'] ?>"><?= $choice['pseudo'] . " - " . $choice['mail'] ?></option>
                                     <?php } ?>
                                 </select>
-                                <button class='btn btn-sm col-12 archive' type="submit" name="select_user" value="<?= $choice['id'] ?>">Changer infos/membre</button>
+                                <button class='btn btn-sm col-12 archive' type="submit" name="select_user" value="select_user">Changer infos/membre</button>
                             </form>
                         <?php }
                     else : { ?>
@@ -70,7 +69,6 @@ $b = "<br>";
                                     <label for="roleinput" class="col-4">Rôle :</label>
                                     <input class="col-6" type="text" id="roleinput" name="user_role" value="<?= $Ch_role ?>" />
                                 </div>
-                                <?php var_dump($Ch_role) ?>
                                 <div class="valide text-center">
                                     <button class='btn btn-sm col-12 archive' type="submit" name="update_user" value="<?= $Ch_id ?>">Mettre à jour l'utilisateur</button>
                                 </div>

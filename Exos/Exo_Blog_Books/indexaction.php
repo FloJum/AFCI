@@ -147,12 +147,12 @@ if (isset($_POST['btnregister'])) {
                 $pass2err = "Les mots de passe ne correspondent pas.";
             } else {
                 $passhash = password_hash($password, PASSWORD_DEFAULT);
+                $password = "";
                 $role = '["membre"]';
                 $sql = "INSERT INTO users (mail,password,pseudo,role) 
                             VALUES ('$mail','$passhash','$pseudo','$role')";
                 $result = mysqli_query($conn, $sql);
                 $_SESSION['mail'] = $mail;
-                header('Location:login.php?');
                 //LOGIN APRES INSCRIPT
                 $sql = "SELECT * FROM users WHERE mail LIKE '$mail' AND password LIKE'$passhash'";
                 $req = mysqli_query($conn, $sql);
@@ -181,14 +181,15 @@ if (isset($_POST['btnregister'])) {
 // FORMULAIRE UTILISATEUR UPDATE
 $Ch_pseudo = $Ch_mail = $Ch_pass = $Ch_role = " ";
 if (isset($_POST['select_user'])) {
-    $sql = "SELECT * FROM users WHERE id LIKE '$_POST[select_user]'";
+    $id = mysqli_real_escape_string($conn, $_POST['user_select']);
+    $sql = "SELECT * FROM users WHERE id LIKE '$id'";
     $uplist = mysqli_query($conn, $sql);
     foreach ($uplist as $val) {
         $Ch_pseudo = $val['pseudo'];
         $Ch_mail = $val['mail'];
         $Ch_pass = $val['password'];
         $Ch_id = $val['id'];
-        $Ch_role = $val['role'];
+        $Ch_role = protect_montexte($val['role']) ;
     }
     mysqli_free_result($uplist);
     mysqli_close($conn);
@@ -205,5 +206,5 @@ if (isset($_POST['update_user'])) {
     $Ch_pseudo = $Ch_mail = $Ch_pass = $Ch_role = "";
     mysqli_free_result($result);
     mysqli_close($conn);
-    header('Location: admin_book.php');
+    header('Location: admin.php');
 }

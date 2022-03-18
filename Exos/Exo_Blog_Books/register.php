@@ -42,7 +42,7 @@ include "indexaction.php";
                     <p class="err text-center"><?php echo !empty($mdperr) ? $mdperr : ""; ?></p>
                 </div>
                 <div class="row text-center mx-0 ">
-                    <input type="submit" name="btnregister" value="S'inscrire" class="col-2 offset-5">
+                    <input class="valid" type="submit" name="btnregister" value="S'inscrire" class="col-2 offset-5">
                 </div>
             </form>
         </div>
@@ -55,17 +55,7 @@ include "indexaction.php";
 </html>
 <style>
     /****************************************** FORMULAIRE ************************************/
-    .formulaire {
-        margin-top: 30px;
-        background-color: #ADEFD1FF;
-        color: #00203FFF;
-        border-radius: 20px;
-        border: 1px solid #00203FFF;
-    }
-
-    .formulaire div {
-        margin: 20px;
-    }
+    
 
     .err {
         margin-top: 20px;

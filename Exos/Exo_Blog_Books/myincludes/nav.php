@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="../exo_blog/css/bootstrap.min.css" />
 
-<nav class="navbar navbar-expand-lg navbar-dark">
+<nav class="navbar navbar-expand-lg">
   <div class="container-fluid">
     <a class="navbar-brand" href="index.php">Accueil</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
@@ -35,7 +35,7 @@
                 </li>
                 <li class="nav-item">
                   <form class="navbar-form my-2 my-sm-0" action="admin.php">
-                    <button class="btn btn-light btnAdmin">Admin</button>
+                    <button class="btn btnAdmin">Admin</button>
                   </form>
                 </li>
         <?php break;

@@ -1,142 +1,138 @@
 body {
-    background-color: #00203FFF;
-    color: #ADEFD1FF;
+  background-color: #00203fff;
+  color: #adefd1ff;
 }
 .formulaire {
-    margin-top: 30px;
-    background-color: #ADEFD1FF;
-    color: #00203FFF;
-    border-radius: 20px;
-    border: 1px solid #00203FFF;
+  margin-top: 30px;
+  background-color: #adefd1ff;
+  color: #00203fff;
+  border-radius: 20px;
+  border: 1px solid #00203fff;
 }
 
 .formulaire div {
-    margin: 20px;
+  margin: 20px;
 }
 .formulaire input {
-    background-color: #b3c7d6ff !important;
-    resize: none;
-    border: 1px solid #0063b2ff !important;
+  background-color: #b3c7d6ff !important;
+  resize: none;
+  border: 1px solid #0063b2ff !important;
 }
 button.valid [type="submit"] {
-    background-color: #32936f !important;
-    color: whitesmoke;
-    font-weight: bold;
-    border-radius: 20px;
-    border: 1px solid #32936f;
-    margin-top: 30x;
-    padding: 5px 30px;
+  background-color: #32936f !important;
+  color: whitesmoke;
+  font-weight: bold;
+  border-radius: 20px;
+  border: 1px solid #32936f;
+  margin-top: 30x;
+  padding: 5px 30px;
 }
 
- button.valid[type="submit"]:hover {
-    background-color: whitesmoke !important;
-    color: #32936f;
-    font-weight: bold;
-    border-radius: 20px;
-    border: 1px solid #32936f !important;
+button.valid[type="submit"]:hover {
+  background-color: whitesmoke !important;
+  color: #32936f;
+  font-weight: bold;
+  border-radius: 20px;
+  border: 1px solid #32936f !important;
 }
 /************************************NAV*************************/
-.affiche{
-    background-color: deepskyblue;
+.affiche {
+  background-color: deepskyblue;
 }
 
-.btnAdmin{
-    color: red;
+.btnAdmin {
+  background-color: #00203fff;
+  color:#adefd1ff;
 }
 .navbar {
-    background-color: #2fa4e7;
-    border-bottom: 2px solid #033c73;
-    padding: 10px 0px;
-  }
+  /* background-color: #2fa4e7; */
+  background-color: #adefd1ff;
+  border-bottom: 2px solid #033c73;
+  padding: 10px 0px;
+}
+.navbar a{
+  color: #00203fff !important;
+}
 /************************************LOGIN*************************/
 
 .login h3 {
-    padding: 30px 0px;
+  padding: 30px 0px;
 }
 
 .login div {
-    margin: 40px;
+  margin: 40px;
 }
 
-
-
-
-
-
-
- /* ******************************ADMIN************************ */
-
-
+/* ******************************ADMIN************************ */
 
 .cadre {
-    background-color: #ADEFD1FF;
-    color: #00203FFF;
-    border-radius: 20px;
-    margin: 20px 0px;
-    border: 1px solid #00203FFF;
+  background-color: #adefd1ff;
+  color: #00203fff;
+  border-radius: 20px;
+  margin: 20px 0px;
+  border: 1px solid #00203fff;
 }
-.form-row:first-child{
-    margin-top: 20px;
+.form-row:first-child {
+  margin-top: 20px;
 }
-.form-row{
-    margin-top: 10px;
+.form-row {
+  margin-top: 10px;
 }
 .valide {
-    margin: 20px 0px;
-
+  margin: 20px 0px;
 }
 .archive {
-    margin: 10px 0px;
-    padding-bottom: 10px;
+  margin: 10px 0px;
+  padding-bottom: 10px;
 }
 
 select {
-    background-color: #00203FFF !important;
-    color: #ADEFD1FF !important;
-    text-align: center;
-    text-align-last: center;
+  background-color: #00203fff !important;
+  color: #adefd1ff !important;
+  text-align: center;
+  text-align-last: center;
 }
-option{
-    text-align: center;
+option {
+  text-align: center;
 }
-form.archive{
-    padding-bottom: 10px;
+form.archive {
+  padding-bottom: 10px;
 }
 .BtnList form {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 .entete {
-    padding: 20px 0px;
-    text-align: center;
-    border: 1px solid #ADEFD1FF;
-    border-radius: 15px;
-    margin-bottom: 40px;
+  padding: 20px 0px;
+  text-align: center;
+  border: 1px solid #adefd1ff;
+  border-radius: 15px;
+  margin-bottom: 40px;
 }
 
 span {
-    font-size: 20px;
-    font-style: italic;
-    margin-left: 50px;
+  font-size: 20px;
+  font-style: italic;
+  margin-left: 50px;
 }
 
 tr {
-    border: 1px solid #00203FFF;
+  border: 1px solid #00203fff;
 }
 
 th {
-    padding: 15px 0px;
-    border: 1px solid #ADEFD1FF;
-    background-color: #00203FFF !important;
-    color: #ADEFD1FF !important;
+  padding: 15px 0px;
+  border: 1px solid #adefd1ff;
+  background-color: #00203fff !important;
+  color: #adefd1ff !important;
 }
 
 td {
-    padding: 15px 0px;
-    background-color: #ADEFD1FF !important;
-    color: #00203FFF !important;
+  padding: 15px 0px;
+  background-color: #adefd1ff !important;
+  color: #00203fff !important;
 }
 
 .archive.btn {
-    background-color: #00203FFF !important;
-    color: #ADEFD1FF !important;
+  background-color: #00203fff !important;
+  color: #adefd1ff !important;
 }

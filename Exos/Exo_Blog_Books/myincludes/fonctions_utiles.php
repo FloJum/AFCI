@@ -21,6 +21,11 @@ function check_mdp_format($mdp) {
 		return true;
 }
 
+function clear_db($param1, $param2) {
+	mysqli_free_result($param1);
+    mysqli_close($param2);
+}
+
 // Pour vérifier l'entrer  email :
     /* $email = test_input($_POST["email"]);
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {

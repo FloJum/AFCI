@@ -16,7 +16,6 @@ if (isset($_POST['btnconnex']) && $_POST['btnconnex'] == 'Connexion') {
         $password = protect_montexte(mysqli_real_escape_string($conn, $_POST['user_password']));
         $sql = "SELECT * FROM users WHERE mail LIKE '$mail'";
         $req = mysqli_query($conn, $sql);
-        var_dump($req);
         if (mysqli_num_rows($req) > 0) {
             $data = mysqli_fetch_array($req, MYSQLI_ASSOC);
             if (password_verify($password, $data['password'])) {

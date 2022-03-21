@@ -48,7 +48,8 @@ include "./myincludes/nav.php";
     .accueil {
         margin-top: 30px;
     }
-    .debug{
+
+    .debug {
         margin-top: 75px;
     }
 </style>

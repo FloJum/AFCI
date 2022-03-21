@@ -11,7 +11,7 @@ $result = mysqli_query($conn, $sql);
 $nbreLivresArch = mysqli_num_rows($result);
 mysqli_free_result($result);
 
-// ADMIN OU MEMBRE
+// ADMIN OU MEMBRE DEBUG
 if (isset($_POST['admin'])) {
     $_SESSION['role'] = '["admin"]';
     header('Location: index.php');
@@ -30,7 +30,7 @@ if (isset($_POST['insert'])) {
     $sql = "INSERT INTO book (titre,auteur,datepub,isarchived,prix) 
                         VALUES ('$titre','$auteur','$datepubli','$isarchived','$prix')";
     $result = mysqli_query($conn, $sql);
-
+    mysqli_free_result($result);
     mysqli_close($conn);
     header('Location: livres.php');
 }
@@ -40,7 +40,7 @@ if (isset($_POST['delete'])) {
     $id = $_POST['delete'];
     $sql = "DELETE FROM book WHERE id LIKE '$id'";
     $result = mysqli_query($conn, $sql);
-
+    mysqli_free_result($result);
     mysqli_close($conn);
     header('Location: livres.php');
 }
@@ -81,14 +81,7 @@ if (isset($_POST['all_archived'])) {
     $sql = "UPDATE book SET isarchived=1";
     $result = mysqli_query($conn, $sql);
     $Archiv = "all_archived";
-    mysqli_close($conn);
-    header('Location: livres.php');
-}
-
-if (isset($_POST['unarch'])) {
-    $sql = "UPDATE book SET isarchived lIKE 0";
-    $result = mysqli_query($conn, $sql);
-    $Archiv = "unarch";
+    mysqli_free_result($result);
     mysqli_close($conn);
     header('Location: livres.php');
 }
@@ -97,6 +90,7 @@ if (isset($_POST['archive'])) {
     $id = $_POST['archive'];
     $sql = "UPDATE book SET isarchived=1 WHERE id LIKE '$id'";
     $result = mysqli_query($conn, $sql);
+    mysqli_free_result($result);
     mysqli_close($conn);
     header('Location: livres.php');
 }
@@ -104,7 +98,7 @@ if (isset($_POST['unarchivedbook'])) {
     $id = $_POST['choixlivre'];
     $sql = "UPDATE book SET isarchived=0 WHERE id LIKE '$id'";
     $result = mysqli_query($conn, $sql);
-    mysqli_close($conn);
+    clear_db($result, $conn);
     header('Location: livres.php');
 }
 
@@ -112,15 +106,15 @@ if (isset($_POST['unarchivedbook'])) {
 // COMMANDER 
 if (isset($_POST['commander'])) {
     $sql = "SELECT * FROM book WHERE id LIKE '$_POST[commander]'";
-    $upbook = mysqli_query($conn, $sql);
-    foreach ($upbook as $val) {
+    $result = mysqli_query($conn, $sql);
+    foreach ($result as $val) {
         $Ch_titre = $val['titre'];
         $Ch_auteur = $val['auteur'];
         $Ch_datepubli = $val['datepub'];
         $Ch_id = $val['id'];
         $Ch_prix = $val['prix'];
     }
-    // header('Location: commande.php');
+    mysqli_free_result($result);
 }
 
 // CREATION COMPTE
@@ -153,26 +147,20 @@ if (isset($_POST['btnregister'])) {
                             VALUES ('$mail','$passhash','$pseudo','$role')";
                 $result = mysqli_query($conn, $sql);
                 $_SESSION['mail'] = $mail;
+
                 //LOGIN APRES INSCRIPT
                 $sql = "SELECT * FROM users WHERE mail LIKE '$mail' AND password LIKE'$passhash'";
                 $req = mysqli_query($conn, $sql);
-                $data = mysqli_fetch_array($req, MYSQLI_ASSOC );
+                $data = mysqli_fetch_array($req, MYSQLI_ASSOC);
                 $_SESSION['pseudo'] = $data['pseudo'];
                 if ($data['role'] == '["admin"]') {
                     $_SESSION['role'] = $data['role'];
-                    echo $_SESSION['role'];
-                    mysqli_free_result($req);
-                    mysqli_close($conn);
-                    header('Location:index.php?');
-                    exit();
                 } else {
                     $_SESSION['role'] = $data['role'];
-                    echo $_SESSION['role'];
-                    mysqli_free_result($req);
-                    mysqli_close($conn);
-                    header('Location:index.php?');
-                    exit();
                 }
+                mysqli_free_result($req);
+                mysqli_close($conn);
+                header('Location:index.php?');
             }
         }
     }
@@ -189,19 +177,28 @@ if (isset($_POST['select_user'])) {
         $Ch_mail = $val['mail'];
         $Ch_pass = $val['password'];
         $Ch_id = $val['id'];
-        $Ch_role = protect_montexte($val['role']) ;
+        $Ch_role = protect_montexte($val['role']);
     }
     mysqli_free_result($uplist);
     mysqli_close($conn);
 };
 // MODIFIER UTILISATEUR
+// if (isset($_POST['update_user'])) {
+//     $id = $_POST['update_user'];
+//     $pseudo = $_POST['user_pseudo'];
+//     $mail = $_POST['user_email'];
+//     $role = $_POST["user_role"];
+//     $sql = "UPDATE users SET mail='$mail',password='$pass',pseudo='$pseudo',role='$role' WHERE id LIKE '$id'";
+//     $result = mysqli_query($conn, $sql);
+//     $Ch_pseudo = $Ch_mail = $Ch_pass = $Ch_role = "";
+//     mysqli_free_result($result);
+//     mysqli_close($conn);
+//     header('Location: admin.php');
+// }
 if (isset($_POST['update_user'])) {
     $id = $_POST['update_user'];
-    $pseudo = $_POST['user_pseudo'];
-    $mail = $_POST['user_email'];
-    $pass = $_POST['user_password'];
-    $role = $_POST["user_role"];
-    $sql = "UPDATE users SET mail='$mail',password='$pass',pseudo='$pseudo',role='$role' WHERE id LIKE '$id'";
+    $role = '["admin"]';
+    $sql = "UPDATE users SET role= '$role' WHERE id LIKE '$id'";
     $result = mysqli_query($conn, $sql);
     $Ch_pseudo = $Ch_mail = $Ch_pass = $Ch_role = "";
     mysqli_free_result($result);

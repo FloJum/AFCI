@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/custom.css" />
+
+    <title>Document</title>
+  </head>
+  <body>
+    
+
+    <script>
+      function myfunc1(param1, param2) {
+        somme = a + b;
+        return somme;
+      }
+    </script>
+
+    <script>
+      function myfunc2(param1, param2) {
+        produit = a * b;
+        return produit;
+      }
+    </script>
+
+    <script>
+      function myfunc3(param1, param2) {
+        sumproduit = myfunc1() + myfunc2() * 2;
+        return sumproduit;
+      }
+    </script>
+    <script>
+      var a = 5,
+        b = 10;
+      document.write("Le résultat est : " + myfunc1() + "<br>");
+      document.write("Le résultat est : " + myfunc2() + "<br>");
+      document.write("Le résultat est : " + myfunc3() + "<br>");
+      document.write("Le résultat est : " + myfunc4() + "<br>");
+    </script>
+
+    <script>
+      function myfunc4(param1, param2) {
+      }
+      let number = 4,
+        carac = "F";
+      for (let i = 0; i < number; i++) {
+        for (let j = 0; j < i; j++) {
+          document.write(carac + "");
+        }
+        document.write("<br>");
+      }
+    </script>
+
+    <script>
+      
+    </script>
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

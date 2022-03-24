@@ -21,7 +21,7 @@ class RegistrationFormType extends AbstractType
         $builder
             ->add('pseudo', TextType::class, [
                 'required' => true,
-                'label' => "Pseudo",
+                'label' => "Pseudo : ",
                 'constraints' => [
                     new  NotBlank([
                         'message' => 'Veuillez saisir un pseudo.'
@@ -34,6 +34,7 @@ class RegistrationFormType extends AbstractType
             ])
             ->add('email', EmailType::class, [
                 'required' => true,
+                'label' => "Adresse mail : "
             ])
             // ->add('agreeTerms', CheckboxType::class, [
             //     'mapped' => false,
@@ -48,6 +49,7 @@ class RegistrationFormType extends AbstractType
                 // this is read and encoded in the controller
                 'required' => true,
                 'mapped' => false,
+                'label' => "Mot de passe : ",
                 'attr' => ['autocomplete' => 'new-password'],
                 'constraints' => [
                     new NotBlank([

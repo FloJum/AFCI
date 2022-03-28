@@ -134,8 +134,12 @@ if (isset($_POST['btnregister'])) {
         mysqli_free_result($req);
         // VERIF CONFORMITE MDP
         check_mdp_format($password);
-        if (check_mdp_format($password) != true) {
-            $mdperr = "Votre mot de passe doit contenir au moins 3 caractères dont 1 majuscule, 1 minuscule et 1 chiffre.";
+        // if (check_mdp_format($password) != true) {
+        //     $mdperr = "Votre mot de passe doit contenir au moins 3 caractères dont 1 majuscule, 1 minuscule et 1 chiffre.";
+        // }
+        if(!preg_match('/(?=.\d)(?=.[a-z])(?=.[A-Z])(?=.[!@#$%^&*()+=-?;,./{}|":<>[]\' ~_]).{8,}/', $password)) {
+                    //    '^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,10}$'
+            $mdperr = "Votre mot de passe doit contenir entre 8 et 15 caractères dont 1 majuscule, 1 minuscule,1 chiffre et un des caractères spéciaux suivants : !@#$%^&*()+=-?;,./{}|\":<>[]\' ~_ .";
         } else {
             if ($password != $password2) {
                 $pass2err = "Les mots de passe ne correspondent pas.";
@@ -148,7 +152,7 @@ if (isset($_POST['btnregister'])) {
                 $result = mysqli_query($conn, $sql);
                 $_SESSION['mail'] = $mail;
 
-                //LOGIN APRES INSCRIPT
+                //LOGIN APRES INSCRIPT 
                 $sql = "SELECT * FROM users WHERE mail LIKE '$mail' AND password LIKE'$passhash'";
                 $req = mysqli_query($conn, $sql);
                 $data = mysqli_fetch_array($req, MYSQLI_ASSOC);

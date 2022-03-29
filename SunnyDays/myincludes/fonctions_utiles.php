@@ -25,6 +25,17 @@ function clear_db($param1, $param2) {
 	mysqli_free_result($param1);
     mysqli_close($param2);
 }
+function convertTZ($dateTimeString, $inputTZ, $outputTZ){
+    $datetime = 
+        \DateTime::createFromFormat('Y-m-d H:i:s', //input format - iso8601
+        $dateTimeString, 
+        new \DateTimeZone($inputTZ))
+        ->setTimezone(new \DateTimeZone('$outputTZ'));
+
+    //outputs a string, if you want the dateTime obj - remove ->format
+    return $datetime->format('Y-m-d H:i:s'); //output format 
+
+}
 // function validatePassword($password) {
 // 	const re = /(?=.\d)(?=.[a-z])(?=.[A-Z])(?=.[!@#$%^&*()+=-?;,./{}|":<>[]\' ~_]).{8,}/
 // 	return re.test($password);

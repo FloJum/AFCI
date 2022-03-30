@@ -1,7 +1,4 @@
 <?php
-
-use LDAP\Result;
-
 session_start();
 include "./myincludes/DBlogin.php";
 include "./myincludes/fonctions_utiles.php";
@@ -31,7 +28,7 @@ if (isset($_POST['logout'])) {
     exit;
 }
 
-// CREATION COMPTE
+// --------------CREATION COMPTE
 if (isset($_POST['btnregister'])) {
     $name = protect_montexte(mysqli_real_escape_string($conn, $_POST['user_name']));
     $forename = protect_montexte(mysqli_real_escape_string($conn, $_POST['user_forename']));
@@ -91,9 +88,39 @@ if (isset($_POST['btnregister'])) {
         }
     }
 }
+// -----------ADMIN
+// choix membre
+if (isset($_POST['select_member'])) {
+    $id = $_POST['user_select'];
+    $sql = "SELECT * FROM users WHERE id LIKE '$id'";
+    $uplist = mysqli_query($conn, $sql);
+    foreach ($uplist as $val) {
+        $Member_name = $val['name'];
+        $Member_forename = $val['forename'];
+        $Member_id = $val['id'];
+    }
+    mysqli_free_result($uplist);
+};
+// promotion membre
+if (isset($_POST['update_user'])) {
+    $id = $_POST['update_user'];
+    $usertype = '["admin"]';
+    $sql = "UPDATE users SET user_type= '$usertype' WHERE id LIKE '$id'";
+    $result = mysqli_query($conn, $sql);
+    $Member_name =  $Member_forename =  $Member_id = "";
+    mysqli_free_result($result);
+    header('Location: admin.php');
+}
+// supression membre
+if (isset($_POST['delete_user_verif'])) {
+    $id = $_POST['delete_user'];
+    $sql = "DELETE FROM users  WHERE id LIKE '$id'";
+    $result = mysqli_query($conn, $sql);
+    mysqli_free_result($result);
+    header('Location: admin.php');
+}
 
-// CONTACT
-
+// -----------CONTACT
 $Ch_name = $Ch_forename = $Ch_email = " ";
 if (isset($_SESSION['user_type'])) {
     $Ch_name = $_SESSION['user_name'];
@@ -102,34 +129,39 @@ if (isset($_SESSION['user_type'])) {
 };
 
 
-// BLOG
+// ------------BLOG
 // AJOUTER ARTICLE
 if (isset($_POST['insert_article'])) {
-    $id = $_POST['insert_article'];
-    $title = protect_montexte(mysqli_real_escape_string($conn, $_POST['art_title']));
-    $autor = protect_montexte(mysqli_real_escape_string($conn, $_POST['art_autor']));
-    $article = protect_montexte(mysqli_real_escape_string($conn, $_POST['art_content']));
-    $datepubli = date('y-m-d h:i:s');
-    $sql = "SELECT * FROM blog WHERE title LIKE '$title'";
-    $req = mysqli_query($conn, $sql);
-    if (mysqli_num_rows($req) > 0) {
-        $Err_art_add = "Titre déja";
-        echo $Err_art_add;
-        header('Location: Blog.php');
-    } else {
-        $sql = "INSERT INTO blog SET title='$title', autor ='$autor',date_publi='$datepubli',article='$article'";
-        $result = mysqli_query($conn, $sql);
-        echo"Je suis peutetre ici";
-        if (mysqli_query($conn, $sql)) {
+    if (isset($_POST['art_title'], $_POST['art_content']) && !empty($_POST['art_title']) and !empty($_POST['art_content'])) {
+        $id = $_POST['insert_article'];
+        $title = protect_montexte(mysqli_real_escape_string($conn, $_POST['art_title']));
+        // $autor = protect_montexte(mysqli_real_escape_string($conn, $_POST['art_autor']));
+        $autor = $_SESSION['user_name'] . " " . $_SESSION['user_forename'];
+        $article = protect_montexte(mysqli_real_escape_string($conn, $_POST['art_content']));
+        $datepubli = date('y-m-d h:i:s');
+        $sql = "SELECT * FROM blog WHERE title LIKE '$title'";
+        $req = mysqli_query($conn, $sql);
+        if (mysqli_num_rows($req) > 0) {
+            $Err_art_add = "Titre déja";
+            echo $Err_art_add;
+            header('Location: Blog.php');
+        } else {
+            $sql = "INSERT INTO blog (title,autor,date_publi,article) VALUES ('$title', '$autor','$datepubli','$article')";
+            $result = mysqli_query($conn, $sql);
+            echo "Je suis peutetre ici";
+            // if (mysqli_query($conn, $sql)) {
             mysqli_free_result($result);
             mysqli_close($conn);
             $Conf_art_add = "Votre article a bien été ajouté.";
             $_SESSION['conf_art_add'] = $Conf_art_add;
-            echo"ICI";
+            echo "ICI";
             header('Location: Blog.php');
-        } else {
-            $Err_art_add = "Erreur lors de l'ajout de l'article.";
+            // } else {
+            //     $Err_art_add = "Erreur lors de l'ajout de l'article.";
+            // }
         }
+    } else {
+        $Err_art_add = "Tous les champs doivent être remplis !";
     }
 }
 
@@ -160,4 +192,69 @@ if (isset($_POST['delete_article_verif'])) {
     mysqli_free_result($result);
     mysqli_close($conn);
     header('Location: Blog.php');
+}
+
+// ------------SEJOUR
+// AJOUTER VOYAGE
+if (isset($_POST['insert_travel'])) {
+    // if (isset($_POST['travel_country'], $_POST['travel_destination']) && !empty($_POST['travel_country']) and !empty($_POST['art_content'])) {
+    $country = protect_montexte(mysqli_real_escape_string($conn, $_POST['travel_country']));
+    $destination = protect_montexte(mysqli_real_escape_string($conn,$_POST['travel_destination']));
+    $chapoTravel = protect_montexte(mysqli_real_escape_string($conn,$_POST['travel_chapo']));
+    $description = protect_montexte(mysqli_real_escape_string($conn,$_POST['travel_description']));
+    $price = $_POST['travel_price'];
+    $checkin = $_POST['travel_checkin'];
+    $checkout = $_POST['travel_checkout'];
+    $pictureTravel = protect_montexte(mysqli_real_escape_string($conn,$_POST['travel_picture']));
+    $datepubliTr = date('y-m-d h:i:s');
+    $sql = "INSERT INTO sejours (country,destination,chapo,description,price,checkin,checkout,picture,date_publi) VALUES ('$country','$destination','$chapoTravel','$description','$price','$checkin','$checkout','$pictureTravel','$datepubliTr') ";
+    $insert = mysqli_query($conn, $sql);
+    // if (mysqli_query($conn, $sql)) {
+    mysqli_free_result($insert);
+    mysqli_close($conn);
+    $Conf_travel_add = "L'offre de voyage a bien été ajouté.";
+    $_SESSION['conf_travel_add'] = $Conf_travel_add;
+    header('Location: Sejours.php');
+    // } else {
+    //     $Err_travel_add = "Erreur lors de l'ajout de l'offre de voyage.";
+    // }
+    // } else {
+    //     $Err_art_add = "Tous les champs doivent être remplis !";
+    // }
+}
+
+//UPDATE VOYAGE
+if (isset($_POST['update_travel_verif'])) {
+    $id = $_POST['update_travel_verif'];
+    $country = protect_montexte(mysqli_real_escape_string($conn, $_POST['travel_country']));
+    $destination = protect_montexte(mysqli_real_escape_string($conn,$_POST['travel_destination']));
+    $chapoTravel = protect_montexte(mysqli_real_escape_string($conn,$_POST['travel_chapo']));
+    $description = protect_montexte(mysqli_real_escape_string($conn,$_POST['travel_description']));
+    $price = $_POST['travel_price'];
+    $checkin = $_POST['travel_checkin'];
+    $checkout = $_POST['travel_checkout'];
+    $pictureTravel = protect_montexte(mysqli_real_escape_string($conn,$_POST['travel_picture']));
+    $dateupdateTr = date('y-m-d h:i:s');
+    var_dump($_POST['travel_country']);
+    $sql = "UPDATE INTO sejours SET country='$country', destination ='$destination', chapo='$chapoTravel', description='$description', price = '$price', checkin = '$checkin', checkout='$checkout', picture='$pictureTravel',date_update='$dateupdateTr' WHERE id LIKE '$id'";
+    $result = mysqli_query($conn, $sql);
+    if (mysqli_query($conn, $sql)) {
+        mysqli_free_result($result);
+        mysqli_close($conn);
+        $Conf_art_update = "Votre article a bien été modifié.";
+        $_SESSION['conf_art_update'] = $Conf_art_update;
+        header('Location: Sejours.php');
+    } else {
+        $Err_art_update = "Erreur lors de la mise à jour de l'offre.";
+    }
+}
+
+// SUPPRIMER ARTICLE
+if (isset($_POST['delete_travel_verif'])) {
+    $id = $_POST['delete_travel_verif'];
+    $sql = "DELETE FROM sejours WHERE id LIKE '$id'";
+    $result = mysqli_query($conn, $sql);
+    mysqli_free_result($result);
+    mysqli_close($conn);
+    header('Location: Sejours.php');
 }

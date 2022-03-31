@@ -1,10 +1,37 @@
+<?php
+include "./myincludes/DBlogin.php";
+if (isset($_POST['newsinscr'])) {
+    if (isset($_POST['mailnewsinscr']) && !empty($_POST['mailnewsinscr'])) {
+        $newsemail = protect_montexte(mysqli_real_escape_string($conn, $_POST['mailnewsinscr']));
+        if (!filter_var($newsemail, FILTER_VALIDATE_EMAIL)) {
+            $emailErr = "Le format de l'adresse email est invalide.";
+        } else {
+            $dateinscr = date('y-m-d h:i:s');
+            $sql = "SELECT * FROM newsletter WHERE email LIKE '$newsemail'";
+            $result = mysqli_query($conn, $sql);
+            if (mysqli_num_rows($result) > 0) {
+                $Err_news_add = "Vous êtes déjà inscrit à la newsletter";
+            } else {
+                mysqli_free_result($result);
+                $sql = "INSERT INTO newsletter (email, date_inscription) VALUES ('$newsemail','$dateinscr')";
+                $newsinscr = mysqli_query($conn, $sql);
+                mysqli_close($conn);
+                $Conf_news_inscr = "Vous êtes désormais inscrit à la newsletter";
+            }
+        }
+    } else {
+        $Err_news_add = "Tous les champs doivent être remplis !";
+    }
+}
+?>
+
 <div class="container">
     <div class="bonplan">
-        <h2>NOS BON PLANS</h2>
+        <h2>NOS BONS PLANS</h2>
         <div class="row-bonplans">
 
             <div class="bp">
-                <a href="/sejours2.html" target="blank" class="bpp">
+                <a href="Sejours.php" target="blank" class="bpp">
                     <img src="medias/bonplan/bptahiti.jpg" class="bppp" alt="bon plan tahiti">
                 </a>
                 <h5 class="titrebp">TAHITI</h5>
@@ -12,21 +39,21 @@
 
             </div>
             <div class="bp">
-                <a href="/sejours2.html" target="blank" class="bpp">
+                <a href="Sejours.php" target="blank" class="bpp">
                     <img src="medias/bonplan/bpcampingvillage.jpg" class="bppp" alt="camping village">
                 </a>
                 <h5 class="titrebp">NICE</h5>
                 <img class="3off" src="medias/30offyellow2.png" alt="30off">
             </div>
             <div class="bp">
-                <a href="sejours2.html" target="blank" class="bpp">
+                <a href="Sejours.php" target="blank" class="bpp">
                     <img src="medias/bonplan/bpguyana.jpg" class="bppp" alt="bon plan guyane">
                 </a>
                 <h5 class="titrebp">GUYANE</h5>
                 <img class="3off" src="medias/30offyellow2.png" alt="30off">
             </div>
             <div class="bp">
-                <a href="sejours2.html" target="blank" class="bpp">
+                <a href="Sejours.php" target="blank" class="bpp">
                     <img src="medias/bonplan/bpsportbali.jpg" class="bppp" alt="sport bali">
                 </a>
                 <h5 class="titrebp">BALI</h5>
@@ -119,18 +146,27 @@
                 Pour ne rien rater, <br> inscrivez-vous a la newsletter !
             </h4>
             <div class="input-group">
-                <form action="">
-                    <input class="inputnews" type="email" placeholder="Entrez votre email 😊">
-                    <button class="btnnews">Let's Go !</button>
+                <form method="post">
+                    <input class="inputnews" type="email" name="mailnewsinscr" placeholder="Entrez votre email 😊">
+                    <button class="btnnews" type="submit" name="newsinscr">Let's Go !</button>
                 </form>
             </div>
         </div>
-
+        <?php if (isset($newsinscr) && $newsinscr == true) { ?>
+            <div class="row mt-3">
+                <div class="col-12">
+                    <div class="alert alert-success alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <?= $Conf_news_inscr ?>
+                    </div>
+                </div>
+            </div>
+        <?php } ?>
     </div>
 
     <div class="paiment">
         <h4>
-            PAIMENTS AUTORISES
+            PAIEMENTS AUTORISES
         </h4>
         <div class="cards">
             <div class="card">
@@ -173,7 +209,7 @@
 
 
 <footer>
-    <a href="/contact2.html" class="linkfooter">NOUS CONTACTER</a>
+    <a href="Contact.php" class="linkfooter">NOUS CONTACTER</a>
     <a href="#" class="linkfooter">Mentions légales</a>
     <div class="footer-icons">
         <div class="reseaux">

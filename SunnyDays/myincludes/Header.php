@@ -49,7 +49,7 @@
       <?php if (isset($_SESSION['user_type'])) : ?>
         <li class="nav-item">
           <form class="navbar-form my-2 my-sm-0" action="Controller.php" method="POST">
-              <button class="btn btndec" type="submit" name="logout"><i class="fa fa-sign-out"></i>DECONNEXION</button>
+            <button class="btn btndec" type="submit" name="logout"><i class="fa fa-sign-out"></i>DECONNEXION</button>
           </form>
         </li>
       <?php else :  ?>
@@ -64,12 +64,8 @@
 </nav>
 <div>
   <div class="titre">
-
     <h1>
       SUNNY DAYS <img src="medias/avion.png" alt="avionplage">
     </h1>
   </div>
-
-
-
 </div>

@@ -25,6 +25,7 @@ if (isset($_POST['null'])) {
 if (isset($_POST['logout'])) {
     session_destroy();
     header('Location: Index.php');
+    exit;
 }
 
 // --------------CREATION COMPTE
@@ -208,18 +209,18 @@ if (isset($_POST['insert_travel'])) {
     $datepubliTr = date('y-m-d h:i:s');
     $sql = "INSERT INTO sejours (country,destination,chapo,description,price,checkin,checkout,picture,date_publi) VALUES ('$country','$destination','$chapoTravel','$description','$price','$checkin','$checkout','$pictureTravel','$datepubliTr') ";
     $insert = mysqli_query($conn, $sql);
-    if (mysqli_query($conn, $sql)) {
+    // if (mysqli_query($conn, $sql)) {
     mysqli_free_result($insert);
     mysqli_close($conn);
     $Conf_travel_add = "L'offre de voyage a bien été ajouté.";
     $_SESSION['conf_travel_add'] = $Conf_travel_add;
     header('Location: Sejours.php');
-    } else {
-        echo$Err_travel_add = "Erreur lors de l'ajout de l'offre de voyage.";
-    }
-//     } else {
-//         $Err_art_add = "Tous les champs doivent être remplis !";
-//     }
+    // } else {
+    //     $Err_travel_add = "Erreur lors de l'ajout de l'offre de voyage.";
+    // }
+    // } else {
+    //     $Err_art_add = "Tous les champs doivent être remplis !";
+    // }
 }
 
 //UPDATE VOYAGE
@@ -234,19 +235,17 @@ if (isset($_POST['update_travel_verif'])) {
     $checkout = $_POST['travel_checkout'];
     $pictureTravel = protect_montexte(mysqli_real_escape_string($conn,$_POST['travel_picture']));
     $dateupdateTr = date('y-m-d h:i:s');
-    echo $id."<br>".$country."<br>".$destination."<br>".$chapoTravel."<br>".$description."<br>".$price."<br>".$checkin."<br>".$checkout."<br>".$pictureTravel."<br>".$dateupdateTr;
-    $sql = "UPDATE sejours SET country='$country', destination ='$destination', chapo='$chapoTravel', description='$description', 
-    price = '$price', checkin = '$checkin', checkout='$checkout', picture='$pictureTravel',date_update='$dateupdateTr' WHERE id LIKE '$id'";
+    var_dump($_POST['travel_country']);
+    $sql = "UPDATE INTO sejours SET country='$country', destination ='$destination', chapo='$chapoTravel', description='$description', price = '$price', checkin = '$checkin', checkout='$checkout', picture='$pictureTravel',date_update='$dateupdateTr' WHERE id LIKE '$id'";
     $result = mysqli_query($conn, $sql);
-    var_dump($result);
     if (mysqli_query($conn, $sql)) {
         mysqli_free_result($result);
         mysqli_close($conn);
-        echo $Conf_art_update = "L'offre a bien été modifié.";
+        $Conf_art_update = "Votre article a bien été modifié.";
         $_SESSION['conf_art_update'] = $Conf_art_update;
         header('Location: Sejours.php');
     } else {
-        echo $Err_art_update = "Erreur lors de la mise à jour de l'offre.";
+        $Err_art_update = "Erreur lors de la mise à jour de l'offre.";
     }
 }
 

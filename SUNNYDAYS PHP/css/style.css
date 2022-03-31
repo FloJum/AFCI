@@ -1,0 +1,791 @@
+@import url('https://fonts.googleapis.com/css2?family=Bungee+Inline&family=Roboto:wght@400;500&family=Secular+One&display=swap');
+body {
+    margin: 0;
+    padding: 0;
+    scroll-behavior: smooth;
+    background-color: rgb(200, 247, 253);
+    color: rgb(36, 35, 35) !important;
+}
+
+.container {
+    max-width: 1400px;
+}
+
+h2,
+h3,
+h4,
+.nav-item,
+#transition,
+footer {
+    letter-spacing: 0.2em;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+li {
+    list-style-type: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+h2 {
+    font-size: 2em;
+    font-family: font-family: 'Secular One', sans-serif;
+    text-shadow: -3px -3px 3px white;
+}
+
+h3 {
+    font-size: 1.5em;
+    font-family: 'Secular One', sans-serif;
+}
+
+h4 {
+    font-size: 1.3em;
+    font-family: 'Secular One', sans-serif;
+}
+
+h5 {
+    font-size: 1.2em;
+    font-family: 'Secular One', sans-serif;
+}
+
+p {
+    font-family: 'Roboto', sans-serif;
+}
+
+
+/* ********************  HEADER ***********  */
+
+.logohome {
+    width: 21%;
+    height: 21%;
+}
+
+header {
+    text-align: center;
+    height: 100vh;
+    margin-bottom: 40px;
+    background: url(/medias/beachcaraibes.jpg) no-repeat 50% 70%;
+    background-size: cover;
+    box-shadow: -1px -1px 8px rgb(7, 0, 66);
+}
+
+h1 {
+    padding: 90px 0 40px 0;
+    font-family: 'Bungee Inline', cursive;
+    font-size: 7.5em;
+    color: rgb(255, 251, 0);
+    text-shadow: -4px 4px 4px rgb(7, 0, 66);
+    animation: titre 7s;
+}
+
+@keyframes titre {
+    0% {
+        opacity: 1;
+        transform: translateX(-1410px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0px);
+    }
+}
+
+
+/*************  NAVBAR  ****************/
+
+.nav-item {
+    font-family: 'Secular One', sans-serif;
+}
+
+.navbar {
+    /* background-color: whitesmoke;
+    opacity: 70%; */
+    height: 45px;
+    transition: 0.7s;
+}
+
+.navbar-nav {
+    width: 90% !important;
+    margin: 0 auto;
+    justify-content: space-between;
+}
+
+.nav-link {
+    opacity: 100%;
+    color: rgb(7, 0, 66) !important;
+    text-shadow: 2px 2px 4px whitesmoke;
+    font-size: 1em;
+}
+
+.nav-link:hover {
+    opacity: 100%;
+    color: rgb(255, 196, 0) !important;
+    text-shadow: 2px 2px 4px rgb(7, 0, 66);
+}
+
+button.btn.btnad,
+.btn.btndec,
+.btn.btnlog {
+    padding: 8px;
+    font-family: 'Secular One', sans-serif !important;
+    letter-spacing: 0.2em;
+    text-align: center;
+    color: rgb(7, 0, 66) !important;
+    text-shadow: 2px 2px 4px whitesmoke;
+    background-color: transparent;
+}
+
+button.btn.btnad:hover,
+.btn.btndec:hover,
+.btn.btnlog:hover {
+    font-family: 'Secular One', sans-serif;
+    letter-spacing: 0.2em;
+    text-align: center;
+    padding: 8px;
+    border-radius: 5px;
+    color: rgb(255, 196, 0) !important;
+    text-shadow: -1px -1px 8px rgb(7, 0, 66);
+}
+
+#divblockheader {
+    margin-left: auto;
+    margin-right: auto;
+    height: 600px;
+    width: 65%;
+    max-width: 1200px;
+    border: solid 5px whitesmoke;
+    border-left: none;
+    border-right: none;
+    /* box-shadow: -1px -1px 8px rgb(0, 60, 74); */
+    background: transparent;
+    color: rgb(7, 0, 66) !important;
+}
+
+
+/* -------------------------------------------------------------------------- */
+
+
+/*                           carousel index Home                           */
+
+
+/* -------------------------------------------------------------------------- */
+
+#carouselExample {
+    height: 100%;
+    width: 100%;
+    max-width: 1150px;
+    margin: 0 auto;
+}
+
+
+/* .carousel-indicators,
+{
+    margin-top: 700px;
+} */
+
+.carousel-item :active {}
+
+.carousel-item img {
+    padding-top: 5%;
+    padding-left: 16%;
+    padding-right: 16%;
+    width: 20%;
+    height: 100%;
+}
+
+.carousel-caption {
+    position: relative !important;
+    left: auto;
+    right: auto;
+    bottom: auto;
+}
+
+.carousel-item h3 {
+    color: rgb(255, 196, 0);
+    text-shadow: -3px 3px 2px rgb(7, 0, 66);
+}
+
+.carousel-item p {
+    font-size: 130%;
+    letter-spacing: 0.2em;
+    color: rgb(7, 0, 66) !important;
+    text-shadow: -3px 3px 2px whitesmoke;
+}
+
+
+/* -------------------------------------------------------------------------- */
+
+
+/*                                   SEJOURS                                  */
+
+
+/* -------------------------------------------------------------------------- */
+
+.titresejours {
+    padding-top: 120px;
+    font-size: 3em;
+}
+
+.fleche {
+    padding-top: 120px;
+}
+
+#flechebas {
+    width: 10%;
+    animation: flechee linear 2s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes flechee {
+    0% {
+        opacity: 1;
+        transform: translateY(-20px);
+    }
+    50% {
+        opacity: 1;
+        transform: translateY(0px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(-20px);
+    }
+}
+
+
+/* .sejour {
+    width: 100%;
+    height: auto;
+    display: flex;
+} */
+
+#sejourtest {
+    margin: 60px 0 50px 0;
+    height: auto;
+}
+
+#sejourtest td {
+    font-weight: bold;
+    color: rgb(7, 0, 66) !important;
+}
+
+.imgtableau {
+    width: 250px;
+    height: 160px;
+}
+
+.listedevoyage {
+    margin: 0 0 60px 0;
+}
+
+.descriptionsejours {
+    width: 400px;
+    height: 300px;
+}
+
+#btncommander {
+    width: 100%;
+}
+
+
+/* -------------------------------------------------------------------------- */
+
+
+/*                                  register                                  */
+
+
+/* -------------------------------------------------------------------------- */
+
+.register {
+    padding: 60px 0 50px 0;
+}
+
+.register label {
+    color: whitesmoke !important;
+    font-weight: bold;
+    text-shadow: -3px 3px 2px rgb(7, 0, 66) !important;
+}
+
+.form-group {
+    margin: 0 0 50px 0;
+}
+
+.form-control {
+    border: solid 2px rgb(255, 196, 0);
+    border-radius: 5px;
+}
+
+#btnregister {
+    margin: 40px 0 0 0;
+}
+
+#btnconnexion {
+    margin: 40px 0 0 0;
+}
+
+
+/* -------------------------------------------------------------------------- */
+
+
+/*                              AAADDDDMMIIINNNN                              */
+
+
+/* -------------------------------------------------------------------------- */
+
+#admins {
+    padding: 50px 0 100px 0;
+    display: flex;
+    flex-direction: column;
+}
+
+#admins h2 {
+    padding: 0 0 50px 0;
+}
+
+tr,
+th {
+    border: solid 2px rgb(7, 0, 66) !important;
+}
+
+#listeetbutton {
+    padding: 0 0 50px 0;
+    width: 100%;
+    display: flex;
+}
+
+.buttonm {
+    width: 100%;
+}
+
+.select {
+    width: 30%;
+}
+
+
+/* -------------------------------------------------------------------------- */
+
+
+/*                               les bons plans                               */
+
+
+/* -------------------------------------------------------------------------- */
+
+.row-bonplans {
+    display: flex;
+    justify-content: space-between;
+    padding: 50px 50px 50px 50px;
+    width: 100%;
+    height: 500px;
+    /* border: 3px solid rgb(7, 0, 66);
+    border-radius: 5px;
+    background-color: rgb(7, 0, 66); */
+}
+
+.bp {
+    display: flex;
+    flex-direction: column;
+    width: 256px;
+    height: 100%;
+    align-items: center;
+    border: 3px solid whitesmoke;
+    border-radius: 5px;
+    background-color: whitesmoke;
+    box-shadow: -1px -1px 8px rgb(7, 0, 66);
+}
+
+.bpp {
+    width: 100%;
+    height: 100%;
+}
+
+img.bppp {
+    width: 250px;
+    height: 250px;
+}
+
+.titrebp {
+    margin-top: 5px;
+    width: 100%;
+    color: rgb(255, 196, 0);
+    letter-spacing: 0.2em;
+    text-align: center;
+}
+
+
+/* -------------------------------------------------------------------------- */
+
+
+/*                     type de vacance plage, montagne...                     */
+
+
+/* -------------------------------------------------------------------------- */
+
+.vacancetype {
+    margin-top: 50px;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 20px 20px 20px;
+    width: 100%;
+    height: 150px;
+}
+
+.critere {
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+    height: 100%;
+    align-items: center;
+}
+
+.crit {
+    margin-bottom: 5px;
+}
+
+
+/* -------------------------------------------------------------------------- */
+
+
+/*                              myclub sunny days                             */
+
+
+/* -------------------------------------------------------------------------- */
+
+.myclub {
+    margin-top: 50px;
+    width: 100%;
+    height: 350px;
+    border-radius: 5px;
+    box-shadow: -1px -1px 8px rgb(7, 0, 66);
+}
+
+.club {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 80px 80px 80px 80px;
+    width: 100%;
+    height: 100%;
+    background-image: url(/medias/myclub.png);
+    background-size: cover;
+    border-radius: 5px;
+}
+
+.club h2 {
+    font-family: 'Bungee Inline', cursive;
+    font-size: 3em;
+    color: rgb(255, 251, 0);
+    text-shadow: -3px 3px 3px rgb(7, 0, 66);
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+
+/* -------------------------------------------------------------------------- */
+
+
+/*                               Nos engagements                              */
+
+
+/* -------------------------------------------------------------------------- */
+
+.nosengagements {
+    margin-top: 60px;
+    width: 100%;
+    height: 350px;
+}
+
+.durable {
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.engagement {
+    margin-top: 20px;
+    width: 200px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.engagement p {
+    margin-top: 10px;
+}
+
+.engagement img {
+    width: 100px;
+    height: 100px;
+}
+
+
+/* -------------------------------------------------------------------------- */
+
+
+/*                                 newsletter                                 */
+
+
+/* -------------------------------------------------------------------------- */
+
+.newsletter {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 400px;
+    background-color: whitesmoke;
+    background-size: cover;
+    box-sizing: content-box;
+}
+
+.newsleft {
+    width: 50%;
+    height: 100%;
+}
+
+#imgletter {
+    width: 399px;
+    height: 399px;
+    position: absolute;
+    box-sizing: border-box;
+}
+
+.newsright {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    width: 50%;
+    height: 400px;
+    text-align: center;
+}
+
+.newsright form {
+    margin-top: 30px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.btnnews {
+    width: 20%;
+    height: 90%;
+    margin-left: 10px;
+    text-align: center;
+    padding: 8px;
+    border-radius: 5px;
+    border: none;
+    color: rgb(255, 196, 0) !important;
+    background-color: rgb(7, 0, 66) !important;
+}
+
+.btnnews:hover {
+    width: 20%;
+    height: 90%;
+    margin-left: 10px;
+    text-align: center;
+    padding: 8px;
+    border-radius: 5px;
+    border: none;
+    color: rgb(7, 0, 66) !important;
+    background-color: rgb(255, 196, 0)!important;
+}
+
+.inputnews {
+    width: 40%;
+    height: 90%;
+    text-align: center;
+    padding: 8px;
+    border: solid 2px rgb(255, 196, 0);
+    border-radius: 5px;
+}
+
+
+/* -------------------------------------------------------------------------- */
+
+
+/*                             paiement autorisés                             */
+
+
+/* -------------------------------------------------------------------------- */
+
+.paiment {
+    padding: 20px 20px 20px 20px;
+    width: 100%;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.cards {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 480px;
+    height: 60px;
+    background-color: transparent;
+}
+
+.card {
+    width: 70px;
+    height: 50px;
+    padding: 3px 3px;
+    background-color: transparent;
+    border-color: transparent;
+    /* border: 2px solid rgb(255, 196, 0);
+    border-radius: 5px;
+    background-color: rgb(7, 0, 66) !important; */
+}
+
+a.pay {
+    padding: 2px 5px 1px 6px;
+    width: 65px !important;
+    height: 45px !important;
+}
+
+.fa-cc-mastercard,
+.fa-cc-amex,
+.fa-cc-visa,
+.fa-cc-paypal,
+.fa-cc-diners-club,
+.fa-credit-card {
+    color: rgb(255, 196, 0);
+    font-size: 2.5em;
+    /* background-color: rgb(7, 0, 66) !important; */
+    border-radius: 5px;
+}
+
+.fa-cc-mastercard:hover,
+.fa-cc-amex:hover,
+.fa-cc-visa:hover,
+.fa-cc-paypal:hover,
+.fa-cc-diners-club:hover,
+.fa-credit-card:hover {
+    color: rgb(7, 0, 66);
+    font-size: 2.5em;
+    background-color: rgb(255, 196, 0) !important;
+    border-radius: 5px;
+}
+
+
+/* -------------------------------------------------------------------------- */
+
+
+/*                                   FOOTER                                   */
+
+
+/* -------------------------------------------------------------------------- */
+
+footer {
+    background: url(/medias/beachcaraibes.jpg) 50% 0% no-repeat fixed;
+    background-size: cover;
+    height: 60px;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    box-shadow: -1px -1px 8px rgb(7, 0, 66);
+}
+
+footer p {
+    font-size: 1em !important;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.linkfooter {
+    color: rgb(7, 0, 66) !important;
+    font-size: 1em;
+    font-weight: bold;
+    margin: 0;
+}
+
+.linkfooter:hover {
+    color: rgb(255, 196, 0) !important;
+    text-shadow: -1px -1px 8px rgb(7, 0, 66);
+    text-decoration: none;
+}
+
+.footer-icons {
+    width: 100%;
+    height: 50px;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 30%;
+}
+
+.reseaux {
+    padding-top: auto;
+    width: 70px;
+}
+
+.network {
+    width: 50px;
+    height: 50;
+    font-size: 2em;
+    padding: 1px 12px;
+    color: rgb(7, 0, 66);
+}
+
+.network:hover {
+    border-radius: 50%;
+    color: rgb(255, 196, 0);
+    text-shadow: -1px -1px 8px rgb(7, 0, 66);
+    transition: all 0.3s ease-in-out;
+}
+
+.arrow {
+    height: 50px;
+}
+
+a.arrow {
+    height: 40px;
+}
+
+i.fa-sort-up {
+    width: 35px !important;
+    height: 25px !important;
+    animation: arrow linear 2s;
+    animation-iteration-count: infinite;
+}
+
+.arrow a {
+    font-size: 2em;
+    color: rgb(7, 0, 66);
+}
+
+.arrow:hover i {
+    transform: scale(1.6);
+    transition: 0.5s ease-in-out;
+    color: rgb(255, 196, 0) !important;
+    text-shadow: -1px -1px 8px rgb(7, 0, 66);
+}
+
+@keyframes arrow {
+    0% {
+        transform: translateY(4px)
+    }
+    50% {
+        transform: translateY(8px);
+    }
+    100% {
+        transform: translateY(4px)
+    }
+}
+
+
+/* -------------------------------------------------------------------------- */
+
+
+/*                           FFFFIIIIIIIIIIIINNNNNNN                          */
+
+
+/* -------------------------------------------------------------------------- */

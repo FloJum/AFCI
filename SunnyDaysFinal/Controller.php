@@ -234,7 +234,7 @@ if (isset($_POST['update_travel_verif'])) {
     $checkout = $_POST['travel_checkout'];
     $pictureTravel = protect_montexte(mysqli_real_escape_string($conn,$_POST['travel_picture']));
     $dateupdateTr = date('y-m-d h:i:s');
-    echo $id.$country.$destination.$chapoTravel.$description.$price.$checkin.$checkout.$pictureTravel.$dateupdateTr;
+    echo $id."<br>".$country."<br>".$destination."<br>".$chapoTravel."<br>".$description."<br>".$price."<br>".$checkin."<br>".$checkout."<br>".$pictureTravel."<br>".$dateupdateTr;
     $sql = "UPDATE sejours SET country='$country', destination ='$destination', chapo='$chapoTravel', description='$description', 
     price = '$price', checkin = '$checkin', checkout='$checkout', picture='$pictureTravel',date_update='$dateupdateTr' WHERE id LIKE '$id'";
     $result = mysqli_query($conn, $sql);
@@ -242,7 +242,7 @@ if (isset($_POST['update_travel_verif'])) {
     if (mysqli_query($conn, $sql)) {
         mysqli_free_result($result);
         mysqli_close($conn);
-        $Conf_art_update = "L'offre a bien été modifié.";
+        echo $Conf_art_update = "L'offre a bien été modifié.";
         $_SESSION['conf_art_update'] = $Conf_art_update;
         header('Location: Sejours.php');
     } else {

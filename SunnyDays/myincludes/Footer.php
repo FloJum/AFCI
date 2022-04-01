@@ -16,16 +16,29 @@ if (isset($_POST['newsinscr'])) {
                 $sql = "INSERT INTO newsletter (email, date_inscription) VALUES ('$newsemail','$dateinscr')";
                 $newsinscr = mysqli_query($conn, $sql);
                 mysqli_close($conn);
-                $Conf_news_inscr = "Vous êtes désormais inscrit à la newsletter";
             }
         }
     } else {
         $Err_news_add = "Tous les champs doivent être remplis !";
     }
 }
+
+if (isset($newsinscr) && $newsinscr == true) {
+    echo '<script>alert("Vous êtes désormais inscrit à la newsletter !")</script>';
+} 
 ?>
 
 <div class="container">
+    <!-- <?php if (isset($newsinscr) && $newsinscr == true) { ?>
+            <div class="row mt-3">
+                <div class="col-12">
+                    <div class="alert alert-success alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <?= $Conf_news_inscr ?>
+                    </div>
+                </div>
+            </div>
+        <?php } ?> -->
     <div class="bonplan">
         <h2>NOS BONS PLANS</h2>
         <div class="row-bonplans">
@@ -146,22 +159,12 @@ if (isset($_POST['newsinscr'])) {
                 Pour ne rien rater, <br> inscrivez-vous a la newsletter !
             </h4>
             <div class="input-group">
-                <form method="post">
+                <form method="post" action="Index.php">
                     <input class="inputnews" type="email" name="mailnewsinscr" placeholder="Entrez votre email 😊">
                     <button class="btnnews" type="submit" name="newsinscr">Let's Go !</button>
                 </form>
             </div>
         </div>
-        <?php if (isset($newsinscr) && $newsinscr == true) { ?>
-            <div class="row mt-3">
-                <div class="col-12">
-                    <div class="alert alert-success alert-dismissible">
-                        <button type="button" class="close" data-dismiss="alert">&times;</button>
-                        <?= $Conf_news_inscr ?>
-                    </div>
-                </div>
-            </div>
-        <?php } ?>
     </div>
 
     <div class="paiment">

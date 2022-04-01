@@ -1,10 +1,12 @@
 <?php
 include "Controller.php";
+
 ?>
 <!DOCTYPE html>
 <html lang="fr">
 <header>
     <?php include "./myincludes/Header.php"; ?>
+
     <div class="" id="divblockheader">
         <div id="carouselExample" class="carousel slide" data-ride="carousel" data-interval="4500">
             <!-- <ol class="carousel-indicators">
@@ -20,7 +22,7 @@ include "Controller.php";
                     <div class="carousel-caption d-md-block">
                         <h3>VAMOS A CUBA</h3>
                         <p>
-                            Coktail, musique <br />
+                            Cocktail, musique <br />
                             vintage et cocotier
                         </p>
                     </div>
@@ -38,7 +40,7 @@ include "Controller.php";
                 <div class="carousel-item">
                     <img class="d-block w-100" src="medias/sejours/balirice.jpg" alt="bali rice" />
                     <div class="carousel-caption d-md-block">
-                        <h3>DEPAYSEMENT ET FOLCKORE A BALI</h3>
+                        <h3>DEPAYSEMENT ET FOLCKLORE A BALI</h3>
                         <p>
                             Suivez les divinités <br />
                             et contemplez la nature
@@ -58,7 +60,7 @@ include "Controller.php";
                 <div class="carousel-item">
                     <img class="d-block w-100" src="medias/sejours/duosvacmaldive.jpg" alt="maldive romantique" />
                     <div class="carousel-caption d-md-block">
-                        <h3>MALDIVE EN DUOS</h3>
+                        <h3>MALDIVES EN DUOS</h3>
                         <p>
                             Chill luxe <br />
                             and romance
@@ -109,4 +111,5 @@ include "Controller.php";
     </div>
     <?php require "myincludes/Footer.php"; ?>
 </body>
+
 </html>

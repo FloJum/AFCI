@@ -91,7 +91,12 @@ h1 {
         transform: translateX(0px);
     }
 }
-
+ .error{
+    color: rgb(7, 0, 66);
+    background-color:whitesmoke;
+    border: 1px solid rgb(7, 0, 66);
+    border-radius: 5px;  margin-top:20px;
+ }
 
 /*************  NAVBAR  ****************/
 

@@ -21,7 +21,7 @@ mysqli_free_result($result);
 
 <body>
     <!-- PARTIE AJOUT DE VOYAGE POUR ADMIN -->
-    <?php if ($_SESSION['user_type'] == '["admin"]') :
+    <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] == '["admin"]') :
         if (isset($_POST['add_travel'])) : ?>
             <form method="post">
                 <div>

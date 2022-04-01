@@ -28,10 +28,10 @@ if (isset($_POST['btnconnex']) && $_POST['btnconnex'] == 'Connexion') {
                 mysqli_close($conn);
                 header('Location:Index.php?');
             } else {
-                $eErr_log = "<p style='color:rgb(7, 0, 66); background-color:whitesmoke; border: 1px solid rgb(7, 0, 66); border-radius: 5px;  margin-top:20px'>L'adresse mail ou le mot de passe est erroné !</p>";
+                $eErr_log = "<p class='error'>L'adresse mail ou le mot de passe est erroné !</p>";
             }
         } else {
-            $Err_log = "<p style='color:rgb(7, 0, 66); background-color:whitesmoke; border: 1px solid rgb(7, 0, 66); border-radius: 5px;  margin-top:20px'>L'adresse mail ou le mot de passe est erroné !</p>";
+            $Err_log = "<p class='error'>L'adresse mail ou le mot de passe est erroné !</p>";
         }
     }
 }
@@ -53,7 +53,7 @@ if (isset($_POST['btnconnex']) && $_POST['btnconnex'] == 'Connexion') {
                         <input class="form-control" type="password" id="password" name="user_password" placeholder="Entrez votre mot de passe" required />
                     </div>
                 </div>
-                <?= $Err_log ?>
+                <?php echo !empty($Err_log) ? $Err_log : ""; ?>
                 <div class="form-group">
                     <div class="row">
                         <div class="col-md-12">

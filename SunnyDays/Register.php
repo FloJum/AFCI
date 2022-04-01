@@ -1,57 +1,66 @@
 <?php
-include "./myincludes/Header.php";
 include "Controller.php";
+isset($_SESSION['emailErr']) ? $emailerr= $_SESSION['emailErr'] : "";
+isset($_SESSION['mdperr'])?$mdperr = $_SESSION['mdperr']:""; 
+isset($_SESSION['createerr']) ?$createerr = $_SESSION['createerr']:"";
 ?>
 
 <!DOCTYPE html>
-<title>Inscription</title>
-<html lang="en">
+<html lang="fr">
+<header>
+    <?php include "./myincludes/Header.php"; ?>
+    <div id="divblockheader">
+        <form class="register" method="post">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="nameinput">NOM</label>
+                        <input class="form-control" type="text" id="nameinput" name="user_name" placeholder="Entrez votre nom" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="forenameinput">PRENOM</label>
+                        <input class="form-control" type="text" id="forenameinput" name="user_forename" placeholder="Entrez votre prénom" required>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="emailinput">MAIL</label>
+                        <input class="form-control" type="mail" id="emailinput" name="user_email" placeholder="Entrez votre mail" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="emailinput2">CONFIRMEZ LE MAIL</label>
+                        <input id="mailconfirm" class="form-control" type="mail" id="emailinput2" name="user_email2" placeholder="Confirmer votre mail" required>
+                    </div>
+                </div>
+                <?php echo !empty($emailerr) ? $emailerr : ""; ?>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="passinput">MOT DE PASSE</label>
+                        <input class="form-control" type="password" id="passinput" name="user_password" placeholder="Entrer votre mot de passe" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="passinput2">CONFIRMER LE MOT DE PASSE</label>
+                        <input class="form-control" type="password" id="passinput2" name="user_password2" placeholder="Confirmer votre mot de passe" required>
+                    </div>
+                </div>
+               <?php echo !empty($mdperr) ? $mdperr : ""; $mdperr=""; echo !empty($createerr) ? $createerr : ""; $createerr = "";?></p>
+            </div>
+
+            <button type="submit" id="btnregister" class="btnnews" name="btnregister" value="S'inscrire">S'inscrire</button>
+        </form>
+
+    </div>
+</header>
 
 <body>
 
-    <div class="row">
-        <form method="post" class="formulaire p-0 col-6 offset-3">
 
-            <div class="form-row ">
-                <label for="nameinput">Nom :</label>
-                <input type="text" id="nameinput" name="user_name" placeholder="Votre nom" required />
-            </div>
-            <div class="form-row ">
-                <label for="forenameinput">Prénom :</label>
-                <input type="text" id="forenameinput" name="user_forename" placeholder="Votre prénom" required />
-            </div>
-            <div class="form-row ">
-                <label for="emailinput">Adresse email* :</label>
-                <input type="mail" id="emailinput" name="user_email" placeholder="toto@exemple.com" required />
-                <!-- La lignea en dessous ne s'affiche qu'en cas d'erreur d'entrée dans le champ -->
-                <p class="err text-center"><?php echo !empty($emailerr) ? $emailerr : ""; ?></p>
-                <!-- --------------------------------------------------------------------------- -->
-            </div>
-            <div class="form-row ">
-                <label for="passinput" class="col-3 offset-1">Mot de passe* :</label>
-                <input class="col-3" type="password" id="passinput" name="user_password" placeholder="Votre mot de passe" minlength="8" maxlength="15" required />
-            </div>
-            <div class="form-row ">
-                <label for="passinput2" class="col-3 offset-1">Confirmer le mot de passe* :</label>
-                <input class="col-3" type="password" id="passinput2" name="user_password2" placeholder="Votre mot de passe" required />
-                <!-- Les lignes en dessous ne s'affichent qu'en cas d'erreur d'entrée dans les champs -->
-                <p class="err text-center"><?php echo !empty($pass2err) ? $pass2err : ""; ?></p>
-                <p class="err text-center"><?php echo !empty($mdperr) ? $mdperr : ""; ?></p>
-                <p class="err text-center"><?php echo !empty($createerr) ? $createerr : ""; ?></p>
-                <!-- --------------------------------------------------------------------------- -->
-            </div>
-            <input type="submit" name="btnregister" value="S'inscrire">
-        </form>
-    </div>
 
     <?php require "./myincludes/Footer.php"; ?>
 </body>
 
 </html>
-
-<style>
-    .err{
-        color:red;
-        margin-top: 20px;
-    }
-</style>

@@ -1,6 +1,6 @@
 <?php
 require "Controller.php";
-if(empty($_SESSION['user_type'])) {
+if (empty($_SESSION['user_type'])) {
     header('Location: Login.php');
 }
 $sql = "SELECT * FROM blog";
@@ -11,6 +11,14 @@ mysqli_free_result($result);
 mysqli_close($conn);
 isset($_SESSION['conf_art_add']) ? $Conf_art_add = $_SESSION['conf_art_add'] : "";
 isset($_SESSION['conf_art_update']) ? $Conf_art_update = $_SESSION['conf_art_update'] : "";
+$member = $_SESSION['user_name'] . " " . $_SESSION['user_forename'];
+// if (isset($_SESSION['conf_art_add'])) {
+//     $Conf_art_add = $_SESSION['conf_art_add'];
+//     $_SESSION['conf_art_add'] = null;
+//     echo "<script type='text/javascript'>alert('$Conf_art_add');</script>";
+// } else if (!empty($Err_art_add)) {
+//     echo "<script type='text/javascript'>alert('$Err_art_add');</script>";
+// }
 ?>
 
 <!DOCTYPE html>
@@ -18,9 +26,10 @@ isset($_SESSION['conf_art_update']) ? $Conf_art_update = $_SESSION['conf_art_upd
 <header>
     <?php include "./myincludes/Header.php"; ?>
     <div id="divblockheader">
-        
+
     </div>
 </header>
+
 <body>
 
     <?php if (isset($_POST['add_article'])) : ?>
@@ -88,7 +97,7 @@ isset($_SESSION['conf_art_update']) ? $Conf_art_update = $_SESSION['conf_art_upd
                                     <button type="submit" name="stop_update" value="<?= $Article['id'] ?>">Ne plus éditer </button>
                                     <button type="submit" name="update_article" value="<?= $Article['id'] ?>">Valider modifications </button>
                                 <?php else : ?>
-                                    <button onClick="location.href='#<?= $Article['id'] ?>'" type="submit" name="start_update" value="<?= $Article['id'] ?>">Editer </button>
+                                    <button onClick="href='#<?= $Article['id'] ?>'" type="submit" name="start_update" value="<?= $Article['id'] ?>">Editer </button>
                                 <?php endif; ?>
 
                                 <?php if (isset($_POST['delete_article']) && $_POST['delete_article'] == $Article['id']) : ?>
@@ -97,16 +106,15 @@ isset($_SESSION['conf_art_update']) ? $Conf_art_update = $_SESSION['conf_art_upd
                                 <?php else : ?>
                                     <button name="delete_article" value="<?= $Article['id'] ?>">Supprimer</button>
                                 <?php endif; ?>
-                            <?php
-                            elseif (isset($_SESSION['user_type']) && $_SESSION['user_type'] == '["membre"]') : ?>
-
-                                <?php if (isset($_POST['start_update']) && $_POST['start_update'] == $Article['id']) : ?>
-                                    <button type="submit" name="stop_update" value="<?= $Article['id'] ?>">Ne plus éditer </button>
-                                    <button type="submit" name="update_article" value="<?= $Article['id'] ?>">Valider modifications </button>
-                                <?php else : ?>
-                                    <button type="submit" name="start_update" value="<?= $Article['id'] ?>">Editer </button>
-                                <?php endif; ?>
-                            <?php
+                                <?php
+                            elseif (isset($_SESSION['user_type']) && $_SESSION['user_type'] == '["membre"]') :  if ($Article['autor'] == $member) : ?>
+                                    <?php if (isset($_POST['start_update']) && $_POST['start_update'] == $Article['id']) : ?>
+                                        <button type="submit" name="stop_update" value="<?= $Article['id'] ?>">Ne plus éditer </button>
+                                        <button type="submit" name="update_article" value="<?= $Article['id'] ?>">Valider modifications </button>
+                                    <?php else : ?>
+                                        <button type="submit" name="start_update" value="<?= $Article['id'] ?>">Editer </button>
+                                    <?php endif; ?>
+                            <?php endif;
                             endif;
                             ?>
                         </td>

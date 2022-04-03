@@ -32,7 +32,7 @@ a {
 
 h2 {
     font-size: 2em;
-    font-family: 'Secular One', sans-serif;
+    font-family:  'Secular One', sans-serif;
     text-shadow: -3px -3px 3px white;
 }
 
@@ -54,6 +54,23 @@ h5 {
 p {
     font-family: 'Roboto', sans-serif;
 }
+
+
+/* -------------------------------------------------------------------------- */
+
+
+/*                             gestion des erreur                             */
+
+
+/* -------------------------------------------------------------------------- */
+
+.error{
+    color: rgb(7, 0, 66);
+    background-color:whitesmoke;
+    border: 1px solid rgb(7, 0, 66);
+    border-radius: 5px;  margin-top:20px;
+    text-align: center;
+ }
 
 
 /* ********************  HEADER ***********  */
@@ -91,12 +108,7 @@ h1 {
         transform: translateX(0px);
     }
 }
- .error{
-    color: rgb(7, 0, 66);
-    background-color:whitesmoke;
-    border: 1px solid rgb(7, 0, 66);
-    border-radius: 5px;  margin-top:20px;
- }
+
 
 /*************  NAVBAR  ****************/
 
@@ -157,7 +169,7 @@ button.btn.btnad:hover,
 #divblockheader {
     margin-left: auto;
     margin-right: auto;
-    height: 600px;
+    height: 550px;
     width: 65%;
     max-width: 1200px;
     border: solid 5px whitesmoke;
@@ -178,8 +190,8 @@ button.btn.btnad:hover,
 /* -------------------------------------------------------------------------- */
 
 #carouselExample {
-    height: 100%;
-    width: 100%;
+    height: auto;
+    width: 70%;
     max-width: 1150px;
     margin: 0 auto;
 }
@@ -191,6 +203,7 @@ button.btn.btnad:hover,
 } */
 
 
+/* .carousel-item :active {} */
 
 .carousel-item img {
     padding-top: 5%;
@@ -269,7 +282,6 @@ button.btn.btnad:hover,
     margin: 60px 0 50px 0;
     height: auto;
 }
-
 #sejourtest td {
     font-weight: bold;
     color: rgb(7, 0, 66) !important;
@@ -339,7 +351,7 @@ button.btn.btnad:hover,
 /* -------------------------------------------------------------------------- */
 
 #admins {
-    padding: 50px 0 100px 0;
+    padding: 100px 0 50px 0;
     display: flex;
     flex-direction: column;
 }
@@ -365,6 +377,136 @@ th {
 
 .select {
     width: 30%;
+}
+
+
+/* -------------------------------------------------------------------------- */
+
+
+/*                                  A propos                                  */
+
+
+/* -------------------------------------------------------------------------- */
+
+.notrebut {
+    margin: 50px 0 0 0;
+}
+
+.aproposdes1 {
+    margin: 30px 0 30px 0;
+    font-weight: bold;
+    color: whitesmoke;
+    font-size: 0.9em;
+}
+
+.aproposdes2 {
+    margin: 30px 0 0 0;
+    font-weight: bold;
+    color: rgb(7, 0, 66);
+    font-size: 0.9em;
+}
+
+
+/* -------------------------------------------------------------------------- */
+
+
+/*                                    team                                    */
+
+
+/* -------------------------------------------------------------------------- */
+
+.teamncoco {
+    margin: 50px 0 0 0;
+}
+
+.noixflex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.noixdecoco {
+    margin: 30px 30px 30px 0;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+}
+
+.nutcoco1 {
+    font-weight: bold;
+    color: whitesmoke;
+    letter-spacing: 0.2em;
+}
+
+.nutcoco2 {
+    font-weight: bold;
+    color: rgb(7, 0, 66);
+    letter-spacing: 0.2em;
+}
+
+
+/* -------------------------------------------------------------------------- */
+
+
+/*                                    blog                                    */
+
+
+/* -------------------------------------------------------------------------- */
+
+.border-secondary {
+    margin: 50px 0 50px 0;
+    border-radius: 5px;
+    background-color: rgb(228, 219, 222);
+}
+
+th {
+    text-transform: uppercase;
+    border-radius: 5px;
+}
+
+td {
+    border-radius: 5px;
+}
+
+table {
+    border-radius: 5px;
+}
+
+.labelblog {
+    font-weight: bold;
+    color: rgb(7, 0, 66);
+    letter-spacing: 0.2em;
+}
+
+.form-controlblogmodif {
+    border: solid 2px rgb(255, 196, 0);
+    border-radius: 5px;
+    width: 50%;
+    height: 100px;
+}
+
+.form-controlajouttitre {
+    border: solid 2px rgb(255, 196, 0);
+    border-radius: 5px;
+    width: 50%;
+    height: 40px;
+}
+
+.lastdivblog {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.errvalide {
+    color: whitesmoke;
+    font-weight: bold;
+    letter-spacing: 0.2em;
+    background-color: green;
+    border: solid 2px whitesmoke;
+    border-radius: 5px;
+    width: 200px;
 }
 
 

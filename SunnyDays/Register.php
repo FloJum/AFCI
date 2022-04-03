@@ -60,7 +60,8 @@ isset($_SESSION['createerr']) ?$createerr = $_SESSION['createerr']:"";
 
 
 
-    <?php require "./myincludes/Footer.php"; ?>
+    <?php require "./myincludes/Footer.php";
+    $_SESSION['emailErr'] = $_SESSION['mdperr'] = $_SESSION['createerr'] = ""; ?>
 </body>
 
 </html>

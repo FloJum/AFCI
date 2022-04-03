@@ -31,7 +31,6 @@ if (isset($_POST['logout'])) {
 
 // --------------CREATION COMPTE
 if (isset($_POST['btnregister'])) {
-    $_SESSION['emailErr'] = $_SESSION['mdperr'] = $_SESSION['createerr'] = $emailerr = $mdperr = $createerr = "";
     $name = protect_montexte(mysqli_real_escape_string($conn, $_POST['user_name']));
     $forename = protect_montexte(mysqli_real_escape_string($conn, $_POST['user_forename']));
     $email = protect_montexte(mysqli_real_escape_string($conn, $_POST['user_email']));
@@ -74,6 +73,7 @@ if (isset($_POST['btnregister'])) {
                             $_SESSION['user_name'] = $data['name'];
                             $_SESSION['user_forename'] = $data['forename'];
                             $_SESSION['user_email'] = $data['email'];
+                            $_SESSION['user_id'] = $data['id'];
                             if ($data['user_type'] == '["admin"]') {
                                 $_SESSION['user_type'] = $data['user_type'];
                             } else {
@@ -144,23 +144,21 @@ if (isset($_POST['insert_article'])) {
         $sql = "SELECT * FROM blog WHERE title LIKE '$title'";
         $req = mysqli_query($conn, $sql);
         if (mysqli_num_rows($req) > 0) {
-            $Err_art_add = "Titre déja";
-            echo $Err_art_add;
+            $_SESSION['err_art_add'] = $Err_art_add = "Titre déja";
             header('Location: Blog.php');
         } else {
             $sql = "INSERT INTO blog (title,autor,date_publi,article) VALUES ('$title', '$autor','$datepubli','$article')";
             $result = mysqli_query($conn, $sql);
             if ($result) {
                 mysqli_close($conn);
-                $Conf_art_add = "Votre article a bien été ajouté.";
-                $_SESSION['conf_art_add'] = $Conf_art_add;
+                $_SESSION['conf_art_add'] = $Conf_art_add = "<p class='error'>Votre article a bien été ajouté.</p>";
                 header('Location: Blog.php');
             } else {
-                $Err_art_add = "Erreur lors de l'ajout de l'article.";
+                $_SESSION['err_art_add'] = $Err_art_add = "<p class='error'>Erreur lors de l'ajout de l'article.</p>";
             }
         }
     } else {
-        $Err_art_add = "Tous les champs doivent être remplis !";
+        $_SESSION['err_art_add'] =$Err_art_add = "<p class='error'>Tous les champs doivent être remplis !</p>";
     }
 }
 
@@ -172,14 +170,12 @@ if (isset($_POST['update_article'])) {
     $dateupdate = date('y-m-d h:i:s');
     $sql = "UPDATE blog SET title='$title',article='$article',date_update='$dateupdate' WHERE id LIKE '$id'";
     $result = mysqli_query($conn, $sql);
-    if (mysqli_query($conn, $sql)) {
-        mysqli_free_result($result);
+    if ($result) {
         mysqli_close($conn);
-        $Conf_art_update = "Votre article a bien été modifié.";
-        $_SESSION['conf_art_update'] = $Conf_art_update;
+        $_SESSION['conf_art_update'] = $Conf_art_update = "<p class='error'>Votre article a bien été modifié.</p>";
         header('Location: Blog.php');
     } else {
-        $Err_art_update = "Erreur lors de la mise à jour de l'article.";
+        $_SESSION['err_art_update'] =$Err_art_update = "<p class='error'>Erreur lors de la mise à jour de l'article.</p>";
     }
 }
 
@@ -192,11 +188,58 @@ if (isset($_POST['delete_article_verif'])) {
     mysqli_close($conn);
     header('Location: Blog.php');
 }
+// COMM
+if (isset($_POST['add_comm'])) {
+    if(isset($_POST['commentary']) && !empty($_POST['commentary'])) {
+        $comm = protect_montexte(mysqli_real_escape_string($conn, $_POST['commentary']));
+        $articleid = $_POST['add_comm'];
+        $autorid = $_SESSION['user_id'];
+        $datepubli = date('y-m-d h:i:s');
+        $sql = "INSERT INTO commentaries (commentary,blog_id,autor_id, datepubli) VALUES ('$comm', '$articleid','$autorid','$datepubli')";
+        $result = mysqli_query($conn, $sql);
+        if ($result) {
+            $_SESSION['conf_comm'] = $conf_comm = "<p class='error'>Votre commentaire a été posté</p>";
+        } else {
+            $_SESSION['err_comm'] = $Err_comm = "<p class='error'>Erreur lors de l'ajout du commentaire.</p>";
+        }
+        
+    } else {
+       $_SESSION['err_comm'] = $Err_comm = "<p class='error'>Un commentaire vide n'est pas un commentaire</p>";
+        }
+}
+
 
 // ------------SEJOUR
 // AJOUTER VOYAGE
 if (isset($_POST['insert_travel'])) {
-    // if (isset($_POST['travel_country'], $_POST['travel_destination']) && !empty($_POST['travel_country']) and !empty($_POST['art_content'])) {
+    if (isset($_POST['travel_country'], $_POST['travel_destination'],$_POST['travel_chapo'],$_POST['travel_description'],$_POST['travel_price'],$_POST['travel_checkin'],$_POST['travel_checkout'],$_POST['travel_picture']) 
+    && !empty($_POST['travel_country']) and !empty($_POST['art_content']) and !empty($_POST['travel_chapo']) and !empty($_POST['travel_description']) and !empty($_POST['travel_price']) and !empty($_POST['travel_checkin'])and !empty($_POST['travel_checkout'])and !empty($_POST['travel_picture'])){
+        $country = protect_montexte(mysqli_real_escape_string($conn, $_POST['travel_country']));
+        $destination = protect_montexte(mysqli_real_escape_string($conn, $_POST['travel_destination']));
+        $chapoTravel = protect_montexte(mysqli_real_escape_string($conn, $_POST['travel_chapo']));
+        $description = protect_montexte(mysqli_real_escape_string($conn, $_POST['travel_description']));
+        $price = $_POST['travel_price'];
+        $checkin = $_POST['travel_checkin'];
+        $checkout = $_POST['travel_checkout'];
+        $pictureTravel = protect_montexte(mysqli_real_escape_string($conn, $_POST['travel_picture']));
+        $datepubliTr = date('y-m-d h:i:s');
+        $sql = "INSERT INTO sejours (country,destination,chapo,description,price,checkin,checkout,picture,date_publi) VALUES ('$country','$destination','$chapoTravel','$description','$price','$checkin','$checkout','$pictureTravel','$datepubliTr') ";
+        $insert = mysqli_query($conn, $sql);
+        if ($insert) {
+            mysqli_close($conn);
+            $_SESSION['conf_travel_add'] = $Conf_travel_add = "<p class='error'>L'offre de voyage a bien été ajouté.</p>";
+            header('Location: Sejours.php');
+        } else {
+            $_SESSION['err_travel_add'] = $Err_travel_add = "<p class='error'>Erreur lors de l'ajout de l'offre de voyage.</p>";
+        }
+    } else {
+        $_SESSION['err_travel_add'] = $Err_art_add = "<p class='error'>Tous les champs doivent être remplis !</p>";
+    }
+}
+
+//UPDATE VOYAGE
+if (isset($_POST['update_travel_verif'])) {
+    $id = $_POST['update_travel_verif'];
     $country = protect_montexte(mysqli_real_escape_string($conn, $_POST['travel_country']));
     $destination = protect_montexte(mysqli_real_escape_string($conn, $_POST['travel_destination']));
     $chapoTravel = protect_montexte(mysqli_real_escape_string($conn, $_POST['travel_chapo']));
@@ -205,52 +248,16 @@ if (isset($_POST['insert_travel'])) {
     $checkin = $_POST['travel_checkin'];
     $checkout = $_POST['travel_checkout'];
     $pictureTravel = protect_montexte(mysqli_real_escape_string($conn, $_POST['travel_picture']));
-    $datepubliTr = date('y-m-d h:i:s');
-    $sql = "INSERT INTO sejours (country,destination,chapo,description,price,checkin,checkout,picture,date_publi) VALUES ('$country','$destination','$chapoTravel','$description','$price','$checkin','$checkout','$pictureTravel','$datepubliTr') ";
-    $insert = mysqli_query($conn, $sql);
-    if ($insert) {
-        mysqli_close($conn);
-        $Conf_travel_add = "L'offre de voyage a bien été ajouté.";
-        $_SESSION['conf_travel_add'] = $Conf_travel_add;
-        header('Location: Sejours.php');
-    } else {
-        echo $Err_travel_add = "Erreur lors de l'ajout de l'offre de voyage.";
-    }
-    //     } else {
-    //         $Err_art_add = "Tous les champs doivent être remplis !";
-    //     }
-}
-
-//UPDATE VOYAGE
-if (isset($_POST['update_travel_verif'])) {
-    $id = $_POST['update_travel_verif'];
-    // $country = protect_montexte(mysqli_real_escape_string($conn, $_POST['travel_country']));
-    // $destination = protect_montexte(mysqli_real_escape_string($conn,$_POST['travel_destination']));
-    // $chapoTravel = protect_montexte(mysqli_real_escape_string($conn,$_POST['travel_chapo']));
-    // $description = protect_montexte(mysqli_real_escape_string($conn,$_POST['travel_description']));
-    $country = addslashes($_POST['travel_country']);
-    $destination = addslashes($_POST['travel_destination']) ;
-    $chapoTravel = addslashes($_POST['travel_chapo']);
-    $description = addslashes($_POST['travel_description']);
-    $price = $_POST['travel_price'];
-    $checkin = $_POST['travel_checkin'];
-    $checkout = $_POST['travel_checkout'];
-    // $pictureTravel = protect_montexte(mysqli_real_escape_string($conn,$_POST['travel_picture']));
-    $pictureTravel = $_POST['travel_picture'];
-    $dateupdateTr = date('y-m-d h:i:s');;
-    echo $id . "<br>" . $country . "<br>" . $destination . "<br>" . $chapoTravel . "<br>" . $description . "<br>" . $price . "<br>" . $checkin . "<br>" . $checkout . "<br>" . $pictureTravel . "<br>" . $dateupdateTr;
+    $dateupdateTr = date('y-m-d h:i:s');
     $sql = "UPDATE sejours SET country='$country', destination ='$destination', chapo='$chapoTravel', description='$description', 
     price = '$price', checkin = '$checkin', checkout='$checkout', picture='$pictureTravel',date_update='$dateupdateTr' WHERE id LIKE '$id'";
     $result = mysqli_query($conn, $sql);
-    var_dump($result);
     if ($result) {
-        mysqli_free_result($result);
         mysqli_close($conn);
-        echo $Conf_art_update = "L'offre a bien été modifié.";
-        $_SESSION['conf_art_update'] = $Conf_art_update;
+        $_SESSION['conf_travel_update'] =  $Conf_travel_update = "<p class='error'>L'offre a bien été modifié.</p>";
         header('Location: Sejours.php');
     } else {
-        echo $Err_art_update = "Erreur lors de la mise à jour de l'offre.";
+        $_SESSION['err_travel_update'] = $Err_travel_update = "<p class='error'>Erreur lors de la mise à jour de l'offre.</p>";
     }
 }
 

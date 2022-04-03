@@ -19,6 +19,7 @@ if (isset($_POST['btnconnex']) && $_POST['btnconnex'] == 'Connexion') {
                 $_SESSION['user_email'] = $data['email'];
                 $_SESSION['user_name'] = $data['name'];
                 $_SESSION['user_forename'] = $data['forename'];
+                $_SESSION['user_id'] = $data['id'];
                 if ($data['user_type'] == '["admin"]') {
                     $_SESSION['user_type'] = $data['user_type'];
                 } else {
@@ -28,7 +29,7 @@ if (isset($_POST['btnconnex']) && $_POST['btnconnex'] == 'Connexion') {
                 mysqli_close($conn);
                 header('Location:Index.php?');
             } else {
-                $eErr_log = "<p class='error'>L'adresse mail ou le mot de passe est erroné !</p>";
+                $Err_log = "<p class='error'>L'adresse mail ou le mot de passe est erroné !</p>";
             }
         } else {
             $Err_log = "<p class='error'>L'adresse mail ou le mot de passe est erroné !</p>";

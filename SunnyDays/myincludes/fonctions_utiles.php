@@ -2,6 +2,7 @@
 function protect_montexte($param) {
     $param = trim($param);
     $param = stripslashes($param);
+    $param = addslashes($param);
     $param = htmlspecialchars($param);
     return $param;
 }

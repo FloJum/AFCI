@@ -246,7 +246,7 @@ if (isset($newsinscr) && $newsinscr == true) {
 
 </footer>
 
-<script src="/asset/jquery/jquery-3.6.0.min.js"></script>
-<script src="/asset/jquery/jquery-3.6.0.slim.min.js"></script>
-<script src="/javascript/aos.js"></script>
-<script src="/javascript/javascriptsunnydays.js"></script>
+<script src="asset/jquery/jquery-3.6.0.min.js"></script>
+<script src="asset/jquery/jquery-3.6.0.slim.min.js"></script>
+<script src="javascript/aos.js"></script>
+<script src="javascript/javascriptsunnydays.js"></script>

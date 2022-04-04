@@ -3,7 +3,7 @@ require "Controller.php";
 if (empty($_SESSION['user_type'])) {
     header('Location: Login.php');
 }
-$sql = "SELECT * FROM blog";
+$sql = "SELECT * FROM blog ORDER BY id DESC";
 $result = mysqli_query($conn, $sql);
 $nbreArticles = mysqli_num_rows($result);
 $all = mysqli_fetch_all($result, MYSQLI_ASSOC);
@@ -36,7 +36,7 @@ $member = $_SESSION['user_name'] . " " . $_SESSION['user_forename'];
     <div class="container">
         <?php if (isset($_POST['add_article'])) : ?>
             <form method="post">
-                <div>
+                <div id="anchor_add">
                     <label class="labelblog" for="art_title">Titre :</label><br>
                     <input class="form-controlajouttitre" type="text" id="art_title" name="art_title" />
                 </div>
@@ -50,7 +50,7 @@ $member = $_SESSION['user_name'] . " " . $_SESSION['user_forename'];
             </form>
             <br>
         <?php else : ?>
-            <form method="post">
+            <form method="post" action="#anchor_add">
                 <button class="btnnews" type="submit" name="add_article">Ajouter un article</button>
             </form>
         <?php endif; ?>
@@ -62,7 +62,7 @@ $member = $_SESSION['user_name'] . " " . $_SESSION['user_forename'];
             <h4>Il y a <?= $nbreArticles ?> articles en ligne !</h4>
             <?php foreach ($all as $Article) : ?>
                 <table class="table border border-3 border-secondary">
-                    <form id="<?= $Article['id'] ?>" method="post">
+                    <form method="post">
                         <?php if (isset($_POST['start_update']) && $_POST['start_update'] == $Article['id']) : ?>
 
                             <tr>
@@ -89,10 +89,10 @@ $member = $_SESSION['user_name'] . " " . $_SESSION['user_forename'];
                         </tr>
                     <?php endif; ?>
 
-                    <tr class="text-center">
-                        <td colspan="3">
-                            <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] == '["admin"]') :  ?>
 
+                    <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] == '["admin"]') :  ?>
+                        <tr class="text-center">
+                            <td colspan="3">
                                 <?php if (isset($_POST['start_update']) && $_POST['start_update'] == $Article['id']) : ?>
                                     <button class="btnnews" type="submit" name="stop_update" value="<?= $Article['id'] ?>">Ne plus éditer </button>
                                     <button class="btnnews" type="submit" name="update_article" value="<?= $Article['id'] ?>">Valider modifications </button>
@@ -106,19 +106,24 @@ $member = $_SESSION['user_name'] . " " . $_SESSION['user_forename'];
                                 <?php else : ?>
                                     <button class="btnnews" name="delete_article" value="<?= $Article['id'] ?>">Supprimer</button>
                                 <?php endif; ?>
-                                <?php
-                            elseif (isset($_SESSION['user_type']) && $_SESSION['user_type'] == '["membre"]') :  if ($Article['autor'] == $member) : ?>
+                            </td>
+                        </tr>
+                        <?php
+                    elseif (isset($_SESSION['user_type']) && $_SESSION['user_type'] == '["membre"]') :  if ($Article['autor'] == $member) : ?>
+                            <tr class="text-center">
+                                <td colspan="3">
                                     <?php if (isset($_POST['start_update']) && $_POST['start_update'] == $Article['id']) : ?>
                                         <button class="btnnews" type="submit" name="stop_update" value="<?= $Article['id'] ?>">Ne plus éditer </button>
                                         <button class="btnnews" type="submit" name="update_article" value="<?= $Article['id'] ?>">Valider modifications </button>
                                     <?php else : ?>
                                         <button class="btnnews" type="submit" name="start_update" value="<?= $Article['id'] ?>">Editer </button>
                                     <?php endif; ?>
-                            <?php endif;
-                            endif;
-                            ?>
-                        </td>
-                    </tr>
+                                </td>
+                            </tr>
+                    <?php endif;
+                    endif;
+                    ?>
+
                     </form>
                     <tr class="text-center">
                         <td colspan="3">
@@ -126,7 +131,7 @@ $member = $_SESSION['user_name'] . " " . $_SESSION['user_forename'];
                         </td>
                     </tr>
                     <?php $Art_id = $Article['id'];
-                    $sql = "SELECT * FROM commentaries INNER JOIN users ON commentaries.autor_id = users.id WHERE blog_id = '$Art_id' ORDER BY commentaries.id DESC";
+                    $sql = "SELECT * FROM commentaries INNER JOIN users ON commentaries.autor_id = users.id WHERE blog_id = '$Art_id' ORDER BY commentaries.id ASC";
                     $req = mysqli_query($conn, $sql);
                     $nbreComm = mysqli_num_rows($req);
                     $listComm = mysqli_fetch_all($req, MYSQLI_ASSOC);

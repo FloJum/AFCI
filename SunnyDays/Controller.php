@@ -212,8 +212,10 @@ if (isset($_POST['add_comm'])) {
 // ------------SEJOUR
 // AJOUTER VOYAGE
 if (isset($_POST['insert_travel'])) {
-    if (isset($_POST['travel_country'], $_POST['travel_destination'],$_POST['travel_chapo'],$_POST['travel_description'],$_POST['travel_price'],$_POST['travel_checkin'],$_POST['travel_checkout'],$_POST['travel_picture']) 
-    && !empty($_POST['travel_country']) and !empty($_POST['art_content']) and !empty($_POST['travel_chapo']) and !empty($_POST['travel_description']) and !empty($_POST['travel_price']) and !empty($_POST['travel_checkin'])and !empty($_POST['travel_checkout'])and !empty($_POST['travel_picture'])){
+    if (isset($_POST['travel_country'], $_POST['travel_destination'],$_POST['travel_chapo'],$_POST['travel_description'],
+    $_POST['travel_price'],$_POST['travel_checkin'],$_POST['travel_checkout'],$_POST['travel_picture']) 
+    && !empty($_POST['travel_country']) and !empty($_POST['travel_destination']) and !empty($_POST['travel_chapo']) and !empty($_POST['travel_description'])
+     and !empty($_POST['travel_price']) and !empty($_POST['travel_checkin'])and !empty($_POST['travel_checkout'])and !empty($_POST['travel_picture'])){
         $country = protect_montexte(mysqli_real_escape_string($conn, $_POST['travel_country']));
         $destination = protect_montexte(mysqli_real_escape_string($conn, $_POST['travel_destination']));
         $chapoTravel = protect_montexte(mysqli_real_escape_string($conn, $_POST['travel_chapo']));
@@ -222,6 +224,7 @@ if (isset($_POST['insert_travel'])) {
         $checkin = $_POST['travel_checkin'];
         $checkout = $_POST['travel_checkout'];
         $pictureTravel = protect_montexte(mysqli_real_escape_string($conn, $_POST['travel_picture']));
+        // $pictureTravel = md5($pictureTravel);
         $datepubliTr = date('y-m-d h:i:s');
         $sql = "INSERT INTO sejours (country,destination,chapo,description,price,checkin,checkout,picture,date_publi) VALUES ('$country','$destination','$chapoTravel','$description','$price','$checkin','$checkout','$pictureTravel','$datepubliTr') ";
         $insert = mysqli_query($conn, $sql);
@@ -234,6 +237,7 @@ if (isset($_POST['insert_travel'])) {
         }
     } else {
         $_SESSION['err_travel_add'] = $Err_art_add = "<p class='error'>Tous les champs doivent être remplis !</p>";
+       
     }
 }
 

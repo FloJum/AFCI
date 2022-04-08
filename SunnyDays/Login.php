@@ -5,7 +5,8 @@ $Err_log = null;
 
 if (isset($_POST['btnconnex']) && $_POST['btnconnex'] == 'Connexion') {
     if ((isset($_POST['user_email']) && !empty($_POST['user_email'])) && (isset($_POST['user_password']) && !empty($_POST['user_password']))) {
-        $conn = mysqli_connect("localhost", "root", "", "sunnydays");
+        // $conn = mysqli_connect("localhost", "root", "", "sunnydays");
+        $conn = mysqli_connect("wolfsnakuyflo.mysql.db", "wolfsnakuyflo", "FoxH0undOh", "wolfsnakuyflo");
         if (mysqli_connect_error($conn)) {
             die("Connexion à la BDD échouée.");
         }

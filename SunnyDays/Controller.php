@@ -3,7 +3,7 @@ session_start();
 include "./myincludes/DBlogin.php";
 include "./myincludes/fonctions_utiles.php";
 date_default_timezone_set('Europe/Paris');
-
+$member ="";
 
  // ADMIN OU MEMBRE DEBUG
 // if (isset($_POST['admin'])) {

@@ -6,9 +6,11 @@ function protect_montexte($param) {
     $param = htmlspecialchars($param);
     return $param;
 }
-// function protection_minimal($param,$var) {
-//  mysqli_real_escape_string($var);
-// }
+function protection_minimal($param) {
+    $param = stripslashes($param);
+    $param = addslashes($param);
+    $param = htmlspecialchars($param);
+}
 function check_mdp_format($mdp) {
 	$majuscule = preg_match('@[A-Z]@', $mdp);
 	$minuscule = preg_match('@[a-z]@', $mdp);

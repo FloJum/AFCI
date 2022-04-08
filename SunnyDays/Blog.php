@@ -63,7 +63,7 @@ $member = $_SESSION['user_name'] . " " . $_SESSION['user_forename'];
             <?php foreach ($all as $Article) : ?>
                 <table class="table border border-3 border-secondary">
                     <form method="post">
-                        <?php if (isset($_POST['start_update']) && $_POST['start_update'] == $Article['id']) : ?>
+                        <?php if (isset($_POST['start_update']) && $_POST['start_update'] == $Article['id'] && (($Article['autor'] == $member) || $_SESSION['user_type'] == '["admin"]')) :?>
 
                             <tr>
                                 <th colspan="3"> <input class="form-control" type="text" id="title" name="art_title" value="<?= $Article['title']  ?>" /> </th>
@@ -79,12 +79,12 @@ $member = $_SESSION['user_name'] . " " . $_SESSION['user_forename'];
                             <tr class="text-justify ">
                                 <td colspan="3"><?= $Article['article'] ?></td>
                             </tr>
-                        <?php endif; ?>
+                        <?php endif;  ?>
                         <tr class="text-center">
                             <td colspan="1"> Le : <i><?= $Article['date_publi'] ?></i></td>
                             <td colspan="1">Écrit par : <strong><?= $Article['autor'] ?></strong></td>
                             <td colspan="1"><?php if (!empty($Article['date_update'])) : ?>
-                                    Modifié le <?= $Article['date_update'] ?>
+                                    Modifié le <?= $Article['date_update'] ?> 
                             </td>
                         </tr>
                     <?php endif; ?>
@@ -99,7 +99,6 @@ $member = $_SESSION['user_name'] . " " . $_SESSION['user_forename'];
                                 <?php else : ?>
                                     <button class="btnnews" type="submit" name="start_update" value="<?= $Article['id'] ?>">Editer </button>
                                 <?php endif; ?>
-
                                 <?php if (isset($_POST['delete_article']) && $_POST['delete_article'] == $Article['id']) : ?>
                                     <button class="btnnews" name="stop_update" value="<?= $Article['id'] ?>">Ne plus supprimer </button>
                                     <button class="btnnews" type="submit" name="delete_article_verif" value="<?= $Article['id'] ?>">Confirmer suppression</button>
@@ -109,19 +108,26 @@ $member = $_SESSION['user_name'] . " " . $_SESSION['user_forename'];
                             </td>
                         </tr>
                         <?php
-                    elseif (isset($_SESSION['user_type']) && $_SESSION['user_type'] == '["membre"]') :  if ($Article['autor'] == $member) : ?>
+                    elseif (isset($_SESSION['user_type']) && $_SESSION['user_type'] == '["membre"]' && ($Article['autor'] == $member)) : ?>
                             <tr class="text-center">
                                 <td colspan="3">
                                     <?php if (isset($_POST['start_update']) && $_POST['start_update'] == $Article['id']) : ?>
                                         <button class="btnnews" type="submit" name="stop_update" value="<?= $Article['id'] ?>">Ne plus éditer </button>
                                         <button class="btnnews" type="submit" name="update_article" value="<?= $Article['id'] ?>">Valider modifications </button>
+                                        <input type="hidden" name="autor_article" value="<?= $Article['autor'] ?>">
                                     <?php else : ?>
                                         <button class="btnnews" type="submit" name="start_update" value="<?= $Article['id'] ?>">Editer </button>
                                     <?php endif; ?>
+                                    <?php if (isset($_POST['delete_article']) && $_POST['delete_article'] == $Article['id']) : ?>
+                                    <button class="btnnews" name="stop_update" value="<?= $Article['id'] ?>">Ne plus supprimer </button>
+                                    <button class="btnnews" type="submit" name="delete_article_verif" value="<?= $Article['id'] ?>">Confirmer suppression</button>
+                                    <input type="hidden" name="autor_article" value="<?= $Article['autor'] ?>">
+                                <?php else : ?>
+                                    <button class="btnnews" name="delete_article" value="<?= $Article['id'] ?>">Supprimer</button>
+                                <?php endif; ?>
                                 </td>
                             </tr>
                     <?php endif;
-                    endif;
                     ?>
 
                     </form>

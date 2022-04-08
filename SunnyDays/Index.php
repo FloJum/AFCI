@@ -91,7 +91,7 @@ include "Controller.php";
 </header>
 
 <body>
-    <div class="accueil">
+    <!-- <div class="accueil">
         <div class="row">
             <h1 class="col-12 text-center">Bienvenue <?php echo isset($_SESSION['user_type']) ? $_SESSION['user_name'] . " " . $_SESSION['user_forename'] : "Visiteur"; ?> !</h1>
             <div class="debug text-center">
@@ -101,14 +101,13 @@ include "Controller.php";
                     <button name="membre">membre</button>
                     <button name="vide">vide</button>
                     <button name="null">null</button>
-                    < <?php if (isset($_SESSION['user_type'])) : {
-                                var_dump($_SESSION['user_type']);
+                    < <?php //if (isset($_SESSION['user_type'])) : {
+                              //  var_dump($_SESSION['user_type'])
                                 //." ".var_dump($_SESSION['user_email'])." ".var_dump($Ch_email)." ".var_dump($Ch_name)." ".var_dump($Ch_forename);
-                            }
-                        endif; ?> </form>
+                            //} endif; ?> </form>
             </div>
         </div>
-    </div>
+    </div> -->
     <?php require "myincludes/Footer.php"; ?>
 </body>
 
